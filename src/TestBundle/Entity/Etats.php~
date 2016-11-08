@@ -1,0 +1,33 @@
+<?php
+
+namespace TestBundle\Entity;
+
+use Doctrine\ORM\Mapping as ORM;
+
+/**
+ * Etats
+ *
+ * @ORM\Table(name="etats")
+ * @ORM\Entity
+ */
+class Etats
+{
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="libelle", type="string", length=20, nullable=false)
+     */
+    private $libelle;
+
+    /**
+     * @var integer
+     *
+     * @ORM\Column(name="id", type="integer")
+     * @ORM\Id
+     * @ORM\GeneratedValue(strategy="IDENTITY")
+     */
+    private $id;
+
+
+}
+

@@ -1,0 +1,77 @@
+<?php
+
+namespace TestBundle\Entity;
+
+use Doctrine\ORM\Mapping as ORM;
+
+/**
+ * Paniers
+ *
+ * @ORM\Table(name="paniers", indexes={@ORM\Index(name="fk_paniers_users", columns={"user_id"}), @ORM\Index(name="fk_paniers_produits", columns={"produit_id"}), @ORM\Index(name="fk_paniers_commandes", columns={"commande_id"})})
+ * @ORM\Entity
+ */
+class Paniers
+{
+    /**
+     * @var integer
+     *
+     * @ORM\Column(name="quantite", type="integer", nullable=false)
+     */
+    private $quantite;
+
+    /**
+     * @var float
+     *
+     * @ORM\Column(name="prix", type="float", precision=6, scale=2, nullable=false)
+     */
+    private $prix;
+
+    /**
+     * @var \DateTime
+     *
+     * @ORM\Column(name="dateAjoutPanier", type="datetime", nullable=false)
+     */
+    private $dateajoutpanier = 'CURRENT_TIMESTAMP';
+
+    /**
+     * @var integer
+     *
+     * @ORM\Column(name="id", type="integer")
+     * @ORM\Id
+     * @ORM\GeneratedValue(strategy="IDENTITY")
+     */
+    private $id;
+
+    /**
+     * @var \TestBundle\Entity\Commandes
+     *
+     * @ORM\ManyToOne(targetEntity="TestBundle\Entity\Commandes")
+     * @ORM\JoinColumns({
+     *   @ORM\JoinColumn(name="commande_id", referencedColumnName="id")
+     * })
+     */
+    private $commande;
+
+    /**
+     * @var \TestBundle\Entity\Produits
+     *
+     * @ORM\ManyToOne(targetEntity="TestBundle\Entity\Produits")
+     * @ORM\JoinColumns({
+     *   @ORM\JoinColumn(name="produit_id", referencedColumnName="id")
+     * })
+     */
+    private $produit;
+
+    /**
+     * @var \TestBundle\Entity\Users
+     *
+     * @ORM\ManyToOne(targetEntity="TestBundle\Entity\Users")
+     * @ORM\JoinColumns({
+     *   @ORM\JoinColumn(name="user_id", referencedColumnName="id")
+     * })
+     */
+    private $user;
+
+
+}
+

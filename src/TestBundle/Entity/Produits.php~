@@ -1,0 +1,71 @@
+<?php
+
+namespace TestBundle\Entity;
+
+use Doctrine\ORM\Mapping as ORM;
+
+/**
+ * Produits
+ *
+ * @ORM\Table(name="produits", indexes={@ORM\Index(name="fk_produits_typeProduits", columns={"typeProduit_id"})})
+ * @ORM\Entity
+ */
+class Produits
+{
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="nom", type="string", length=50, nullable=true)
+     */
+    private $nom;
+
+    /**
+     * @var float
+     *
+     * @ORM\Column(name="prix", type="float", precision=6, scale=2, nullable=true)
+     */
+    private $prix;
+
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="photo", type="string", length=50, nullable=true)
+     */
+    private $photo;
+
+    /**
+     * @var boolean
+     *
+     * @ORM\Column(name="dispo", type="boolean", nullable=false)
+     */
+    private $dispo;
+
+    /**
+     * @var integer
+     *
+     * @ORM\Column(name="stock", type="integer", nullable=false)
+     */
+    private $stock;
+
+    /**
+     * @var integer
+     *
+     * @ORM\Column(name="id", type="integer")
+     * @ORM\Id
+     * @ORM\GeneratedValue(strategy="IDENTITY")
+     */
+    private $id;
+
+    /**
+     * @var \TestBundle\Entity\Typeproduits
+     *
+     * @ORM\ManyToOne(targetEntity="TestBundle\Entity\Typeproduits")
+     * @ORM\JoinColumns({
+     *   @ORM\JoinColumn(name="typeProduit_id", referencedColumnName="id")
+     * })
+     */
+    private $typeproduit;
+
+
+}
+

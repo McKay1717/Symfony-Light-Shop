@@ -1,0 +1,41 @@
+{% extends 'base.html.twig' %}
+
+{% block body %}
+    <h1>Commandes list</h1>
+
+    <table>
+        <thead>
+            <tr>
+                <th>Prix</th>
+                <th>Dateachat</th>
+                <th>Id</th>
+                <th>Actions</th>
+            </tr>
+        </thead>
+        <tbody>
+        {% for commande in commandes %}
+            <tr>
+                <td><a href="{{ path('commandes_show', { 'id': commande.id }) }}">{{ commande.prix }}</a></td>
+                <td>{% if commande.dateAchat %}{{ commande.dateAchat|date('Y-m-d H:i:s') }}{% endif %}</td>
+                <td>{{ commande.id }}</td>
+                <td>
+                    <ul>
+                        <li>
+                            <a href="{{ path('commandes_show', { 'id': commande.id }) }}">show</a>
+                        </li>
+                        <li>
+                            <a href="{{ path('commandes_edit', { 'id': commande.id }) }}">edit</a>
+                        </li>
+                    </ul>
+                </td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+
+    <ul>
+        <li>
+            <a href="{{ path('commandes_new') }}">Create a new entry</a>
+        </li>
+    </ul>
+{% endblock %}
