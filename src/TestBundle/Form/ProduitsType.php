@@ -6,14 +6,14 @@ use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 
-class CommandesType extends AbstractType
+class ProduitsType extends AbstractType
 {
     /**
      * {@inheritdoc}
      */
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
-        $builder->add('prix')->add('dateAchat')->add('etat')->add('user')        ;
+        $builder->add('nom')->add('prix')->add('photo')->add('dispo')->add('stock')->add('typeproduit')        ;
     }
     
     /**
@@ -22,7 +22,7 @@ class CommandesType extends AbstractType
     public function configureOptions(OptionsResolver $resolver)
     {
         $resolver->setDefaults(array(
-            'data_class' => 'TestBundle\Entity\Commandes'
+            'data_class' => 'TestBundle\Entity\Produits'
         ));
     }
 
@@ -31,7 +31,7 @@ class CommandesType extends AbstractType
      */
     public function getBlockPrefix()
     {
-        return 'testbundle_commandes';
+        return 'testbundle_produits';
     }
 
 
