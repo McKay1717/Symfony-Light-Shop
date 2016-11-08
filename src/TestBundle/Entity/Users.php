@@ -311,4 +311,12 @@ class Users
     {
         return $this->id;
     }
+    /**
+     * toString
+     * @return string
+     */
+    public function __toString()
+    {
+    	return $this->getEmail();
+    }
 }

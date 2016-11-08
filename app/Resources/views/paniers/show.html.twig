@@ -1,0 +1,40 @@
+{% extends 'base.html.twig' %}
+
+{% block body %}
+    <h1>Panier</h1>
+
+    <table>
+        <tbody>
+            <tr>
+                <th>Quantite</th>
+                <td>{{ panier.quantite }}</td>
+            </tr>
+            <tr>
+                <th>Prix</th>
+                <td>{{ panier.prix }}</td>
+            </tr>
+            <tr>
+                <th>Dateajoutpanier</th>
+                <td>{% if panier.dateajoutpanier %}{{ panier.dateajoutpanier|date('Y-m-d H:i:s') }}{% endif %}</td>
+            </tr>
+            <tr>
+                <th>Id</th>
+                <td>{{ panier.id }}</td>
+            </tr>
+        </tbody>
+    </table>
+
+    <ul>
+        <li>
+            <a href="{{ path('paniers_index') }}">Back to the list</a>
+        </li>
+        <li>
+            <a href="{{ path('paniers_edit', { 'id': panier.id }) }}">Edit</a>
+        </li>
+        <li>
+            {{ form_start(delete_form) }}
+                <input type="submit" value="Delete">
+            {{ form_end(delete_form) }}
+        </li>
+    </ul>
+{% endblock %}

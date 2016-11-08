@@ -39,7 +39,7 @@ class ProduitsController extends Controller
      */
     public function newAction(Request $request)
     {
-        $produit = new Produit();
+        $produit = new Produits();
         $form = $this->createForm('TestBundle\Form\ProduitsType', $produit);
         $form->handleRequest($request);
 
