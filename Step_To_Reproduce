@@ -1,0 +1,13 @@
+Créer le bundle
+php bin/console generate:bundle
+
+Importer la BDD puis configurer app/parameters.yml
+Mappage de la BDD (Création des XML pour décrire les vue)
+php bin/console doctrine:mapping:import --force TestBundle xml
+
+Création des class modéle dans src
+php bin/console doctrine:mapping:convert annotation ./src
+php bin/console doctrine:generate:entities TestBundle
+
+Géntation des controller et des vue
+php bin/console doctrine:generate:crud TestBundle #puis specifier la table(La Table)
