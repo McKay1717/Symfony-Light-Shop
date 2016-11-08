@@ -56,5 +56,110 @@ class Commandes
     private $user;
 
 
-}
 
+    /**
+     * Set prix
+     *
+     * @param float $prix
+     *
+     * @return Commandes
+     */
+    public function setPrix($prix)
+    {
+        $this->prix = $prix;
+
+        return $this;
+    }
+
+    /**
+     * Get prix
+     *
+     * @return float
+     */
+    public function getPrix()
+    {
+        return $this->prix;
+    }
+
+    /**
+     * Set dateAchat
+     *
+     * @param \DateTime $dateAchat
+     *
+     * @return Commandes
+     */
+    public function setDateAchat($dateAchat)
+    {
+        $this->dateAchat = $dateAchat;
+
+        return $this;
+    }
+
+    /**
+     * Get dateAchat
+     *
+     * @return \DateTime
+     */
+    public function getDateAchat()
+    {
+        return $this->dateAchat;
+    }
+
+    /**
+     * Get id
+     *
+     * @return integer
+     */
+    public function getId()
+    {
+        return $this->id;
+    }
+
+    /**
+     * Set etat
+     *
+     * @param \TestBundle\Entity\Etats $etat
+     *
+     * @return Commandes
+     */
+    public function setEtat(\TestBundle\Entity\Etats $etat = null)
+    {
+        $this->etat = $etat;
+
+        return $this;
+    }
+
+    /**
+     * Get etat
+     *
+     * @return \TestBundle\Entity\Etats
+     */
+    public function getEtat()
+    {
+        return $this->etat;
+    }
+
+    /**
+     * Set user
+     *
+     * @param \TestBundle\Entity\Users $user
+     *
+     * @return Commandes
+     */
+    public function setUser(\TestBundle\Entity\Users $user = null)
+    {
+        $this->user = $user;
+
+        return $this;
+    }
+
+    /**
+     * Get user
+     *
+     * @return \TestBundle\Entity\Users
+     */
+    public function getUser()
+    {
+        return $this->user;
+    }
+}

@@ -73,5 +73,158 @@ class Paniers
     private $user;
 
 
-}
 
+    /**
+     * Set quantite
+     *
+     * @param integer $quantite
+     *
+     * @return Paniers
+     */
+    public function setQuantite($quantite)
+    {
+        $this->quantite = $quantite;
+
+        return $this;
+    }
+
+    /**
+     * Get quantite
+     *
+     * @return integer
+     */
+    public function getQuantite()
+    {
+        return $this->quantite;
+    }
+
+    /**
+     * Set prix
+     *
+     * @param float $prix
+     *
+     * @return Paniers
+     */
+    public function setPrix($prix)
+    {
+        $this->prix = $prix;
+
+        return $this;
+    }
+
+    /**
+     * Get prix
+     *
+     * @return float
+     */
+    public function getPrix()
+    {
+        return $this->prix;
+    }
+
+    /**
+     * Set dateajoutpanier
+     *
+     * @param \DateTime $dateajoutpanier
+     *
+     * @return Paniers
+     */
+    public function setDateajoutpanier($dateajoutpanier)
+    {
+        $this->dateajoutpanier = $dateajoutpanier;
+
+        return $this;
+    }
+
+    /**
+     * Get dateajoutpanier
+     *
+     * @return \DateTime
+     */
+    public function getDateajoutpanier()
+    {
+        return $this->dateajoutpanier;
+    }
+
+    /**
+     * Get id
+     *
+     * @return integer
+     */
+    public function getId()
+    {
+        return $this->id;
+    }
+
+    /**
+     * Set commande
+     *
+     * @param \TestBundle\Entity\Commandes $commande
+     *
+     * @return Paniers
+     */
+    public function setCommande(\TestBundle\Entity\Commandes $commande = null)
+    {
+        $this->commande = $commande;
+
+        return $this;
+    }
+
+    /**
+     * Get commande
+     *
+     * @return \TestBundle\Entity\Commandes
+     */
+    public function getCommande()
+    {
+        return $this->commande;
+    }
+
+    /**
+     * Set produit
+     *
+     * @param \TestBundle\Entity\Produits $produit
+     *
+     * @return Paniers
+     */
+    public function setProduit(\TestBundle\Entity\Produits $produit = null)
+    {
+        $this->produit = $produit;
+
+        return $this;
+    }
+
+    /**
+     * Get produit
+     *
+     * @return \TestBundle\Entity\Produits
+     */
+    public function getProduit()
+    {
+        return $this->produit;
+    }
+
+    /**
+     * Set user
+     *
+     * @param \TestBundle\Entity\Users $user
+     *
+     * @return Paniers
+     */
+    public function setUser(\TestBundle\Entity\Users $user = null)
+    {
+        $this->user = $user;
+
+        return $this;
+    }
+
+    /**
+     * Get user
+     *
+     * @return \TestBundle\Entity\Users
+     */
+    public function getUser()
+    {
+        return $this->user;
+    }
+}
