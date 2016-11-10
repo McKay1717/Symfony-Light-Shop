@@ -17,6 +17,19 @@
 			"Tests\\" : "tests/"
 		}
 	},
+    "repositories": [
+        {
+            "type": "package",
+            "package": {
+                "name": "jquery/jquery",
+                "version": "1.11.1",
+                "dist": {
+                    "url": "https://code.jquery.com/jquery-1.11.1.js",
+                    "type": "file"
+                }
+            }
+        }
+    ],
 	"require" : {
 		"php" : ">=5.5.9",
 		"symfony/symfony" : "3.1.*",
@@ -30,10 +43,12 @@
 		"sensio/framework-extra-bundle" : "^3.0.2",
 		"incenteev/composer-parameter-handler" : "^2.0",
 		"symfony/assetic-bundle": "^2.8",
-		"neimheadh/bootstrap-bundle": "^0.2.0",
+		"braincrafted/bootstrap-bundle": "dev-master",
 		"symfony/framework-bundle": "3.1.*",
     		"twig/twig": "~1.23|~2.0",
-    		"twbs/bootstrap": "^3.3"
+    		"twbs/bootstrap": "^3.3",
+		"oyejorge/less.php": "v1.7.0.10",
+		"jquery/jquery": "^1.11"
 	},
 	"require-dev" : {
 		"sensio/generator-bundle" : "^3.0",
@@ -41,12 +56,10 @@
 	},
 	"scripts" : {
 		"post-install-cmd" : [
-			"@symfony-scripts",
-			"Mopa\\Bundle\\BootstrapBundle\\Composer\\ScriptHandler::postInstallSymlinkTwitterBootstrapSass"
+			"@symfony-scripts"
 		],
 		"post-update-cmd" : [
-			"@symfony-scripts",
-			"Mopa\\Bundle\\BootstrapBundle\\Composer\\ScriptHandler::postInstallSymlinkTwitterBootstrapSass"
+			"@symfony-scripts"
 		]
 	},
 	"config" : {

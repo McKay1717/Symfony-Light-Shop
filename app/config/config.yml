@@ -65,11 +65,14 @@ swiftmailer:
     spool:     { type: memory }
 
 assetic:
-    debug:          true
-    use_controller: false
-    bundles:        [NeimheadhBootstrapBundle]
     filters:
+        lessphp:
+             file: %kernel.root_dir%/../vendor/oyejorge/less.php/lessc.inc.php
+             apply_to: ".less$"
         cssrewrite: ~
+
+braincrafted_bootstrap:
+    css_preprocessor: lessphp
 
 twig:
     debug:            %kernel.debug%
