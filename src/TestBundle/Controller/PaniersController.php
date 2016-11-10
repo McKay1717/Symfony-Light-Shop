@@ -39,7 +39,7 @@ class PaniersController extends Controller
      */
     public function newAction(Request $request)
     {
-        $panier = new Panier();
+        $panier = new Paniers();
         $form = $this->createForm('TestBundle\Form\PaniersType', $panier);
         $form->handleRequest($request);
 

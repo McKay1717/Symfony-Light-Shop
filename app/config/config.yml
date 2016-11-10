@@ -33,10 +33,6 @@ framework:
     http_method_override: true
     assets: ~
 
-# Twig Configuration
-twig:
-    debug:            "%kernel.debug%"
-    strict_variables: "%kernel.debug%"
 
 # Doctrine Configuration
 doctrine:
@@ -67,3 +63,14 @@ swiftmailer:
     username:  "%mailer_user%"
     password:  "%mailer_password%"
     spool:     { type: memory }
+
+assetic:
+    debug:          true
+    use_controller: false
+    bundles:        [NeimheadhBootstrapBundle]
+    filters:
+        cssrewrite: ~
+
+twig:
+    debug:            %kernel.debug%
+    strict_variables: %kernel.debug%

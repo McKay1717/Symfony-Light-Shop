@@ -221,4 +221,13 @@ class Produits
     {
         return $this->typeproduit;
     }
+    /**
+     * toString
+     * @return string
+     */
+    public function __toString()
+    {
+    	return $this->getNom();
+    }
+    
 }

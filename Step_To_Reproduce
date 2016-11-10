@@ -11,3 +11,9 @@ php bin/console doctrine:generate:entities TestBundle
 
 Géntation des controller et des vue
 php bin/console doctrine:generate:crud TestBundle #puis specifier la table(La Table)
+
+Activer Bootstrap 
+Ajout du bundle via composer
+Modification de la vue par default app/Ressources/view/base.html.twig
+php bin/console assetic:dump
+php bin/console assetic:watch
