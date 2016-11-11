@@ -1,0 +1,35 @@
+{% extends 'base.html.twig' %}
+
+{% block body %}
+<h1>Produits list</h1>
+<div class="container-fluid">
+	<div class="row">
+		{% for produit in produits %}
+		<div class="col-xs-6 col-md-4">
+			<div class="panel panel-default">
+				<div class="panel-heading">
+					<h3 class="panel-title">
+						<a href="{{ path('produits_show', { 'id': produit.id }) }}">{{ produit.nom }}</a>
+					</h3>
+				</div>
+				<div class="panel-body">
+					<img alt="" src="{{ produit.photo }}">
+				</div>
+				<div class="panel-footer">
+					{{ produit.prix }}
+					€
+					{% if produit.dispo %}
+					En stock (
+					{{ produit.stock }}
+					)
+					{% else %}
+					En Rupture
+					{% endif %}
+				</div>
+			</div>
+		</div>
+
+		{% endfor %}
+	</div>
+</div>
+{% endblock %}

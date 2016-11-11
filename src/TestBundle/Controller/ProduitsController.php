@@ -17,19 +17,36 @@ class ProduitsController extends Controller
     /**
      * Lists all produit entities.
      *
-     * @Route("/", name="produits_index")
+     * @Route("/grid", name="produits_grid")
      * @Method("GET")
      */
-    public function indexAction()
+    public function gridAction()
     {
         $em = $this->getDoctrine()->getManager();
 
         $produits = $em->getRepository('TestBundle:Produits')->findAll();
 
-        return $this->render('produits/index.html.twig', array(
+        return $this->render('produits/grid.html.twig', array(
             'produits' => $produits,
         ));
     }
+    /**
+     * Lists all produit entities.
+     *
+     * @Route("/", name="produits_index")
+     * @Method("GET")
+     */
+    public function indexAction()
+    {
+    	$em = $this->getDoctrine()->getManager();
+    
+    	$produits = $em->getRepository('TestBundle:Produits')->findAll();
+    
+    	return $this->render('produits/index.html.twig', array(
+    			'produits' => $produits,
+    	));
+    }
+
 
     /**
      * Creates a new produit entity.
