@@ -16,4 +16,3 @@ Activer Bootstrap
 Ajout du bundle via composer
 Modification de la vue par default app/Ressources/view/base.html.twig
 php bin/console assetic:dump
-php bin/console assetic:watch
