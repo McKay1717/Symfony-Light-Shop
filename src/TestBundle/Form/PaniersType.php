@@ -6,6 +6,7 @@ use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 use Symfony\Component\Form\Extension\Core\Type\DateTimeType;
+use Symfony\Component\Form\Extension\Core\Type\HiddenType;
 
 class PaniersType extends AbstractType {
 	/**
@@ -24,7 +25,7 @@ class PaniersType extends AbstractType {
 						'second' => 'Second' 
 				),
 				'data' => new \DateTime () 
-		) )->add ( 'commande' )->add ( 'produit' )->add ( 'user' );
+		) )->add ( 'commande' )->add ( 'produit', HiddenType::class )->add ( 'user', HiddenType::class );
 	}
 	
 	/**
