@@ -14,22 +14,7 @@ use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;use Symfony\Component
  */
 class ProduitsController extends Controller
 {
-    /**
-     * Lists all produit entities.
-     *
-     * @Route("/grid", name="produits_grid")
-     * @Method("GET")
-     */
-    public function gridAction()
-    {
-        $em = $this->getDoctrine()->getManager();
 
-        $produits = $em->getRepository('TestBundle:Produits')->findAll();
-
-        return $this->render('produits/grid.html.twig', array(
-            'produits' => $produits,
-        ));
-    }
     /**
      * Lists all produit entities.
      *
