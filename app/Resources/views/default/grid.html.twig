@@ -25,6 +25,18 @@
 					{% else %}
 					En Rupture
 					{% endif %}
+					{{ form_start(form) }}
+					<div class="hidden">
+						{{ form_widget(form.quantite, {'value' : 1}) }}
+						{{ form_widget(form.prix, {'value' : produit.prix}) }}
+						{{ form_widget(form.user, {'selected' : 1}) }}
+						{{ form_widget(form.dateajoutpanier) }}
+						{{ form_widget(form.commande) }}
+						{{ form_widget(form.produit, {'selected' : produit.id} ) }}
+
+					</div>
+					<input type="submit" value="Ajouter au panier" />
+					{{ form_end(form) }}
 				</div>
 			</div>
 		</div>
