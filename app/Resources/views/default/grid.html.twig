@@ -28,75 +28,70 @@
 				</div>
 			</div>
 		</div>
-	
 
 
 
-{% endfor %}
 
+		{% endfor %}
+
+	</div>
 </div>
-</div>
-<!-- Button trigger modal -->
-		<button type="button" class="btn btn-primary btn-lg"
-			data-toggle="modal" data-target="#myModal">Panier Test
-		</button>
 
-		<!-- Modal -->
-		<div class="modal fade" id="myModal" tabindex="-1" role="dialog"
-			aria-labelledby="myModalLabel">
-			<div class="modal-dialog" role="document">
-				<div class="modal-content">
-					<div class="modal-header">
-						<button type="button" class="close" data-dismiss="modal"
-							aria-label="Close">
-							<span aria-hidden="true">&times;</span>
-						</button>
-						<h4 class="modal-title" id="myModalLabel">Panier</h4>
-					</div>
-					<div class="modal-body">
-						<div class="table-responsive">
-							<table class="table">
-								<thead>
-									<tr>
-										<th>Quantite</th>
-										<th>Prix</th>
-										<th>Dateajoutpanier</th>
-										<th>Id</th>
-										<th>Actions</th>
-									</tr>
-								</thead>
-								<tbody>
-									{% for panier in paniers %}
-									<tr>
-										<td><a
-											href="{{ path('paniers_show', { 'id': panier.id }) }}">{{ panier.quantite }}</a></td>
-										<td>{{ panier.prix }}</td>
-										<td>{% if panier.dateajoutpanier %}
-											{{ panier.dateajoutpanier|date('Y-m-d H:i:s') }}
-											{% endif %}</td>
-										<td>{{ panier.id }}</td>
-										<td>
-											<ul>
-												<li><a
-													href="{{ path('paniers_show', { 'id': panier.id }) }}">show</a>
-												</li>
-												<li><a
-													href="{{ path('paniers_edit', { 'id': panier.id }) }}">edit</a>
-												</li>
-											</ul>
-										</td>
-									</tr>
-									{% endfor %}
-								</tbody>
-							</table>
-						</div>
-					</div>
-					<div class="modal-footer">
-						<button type="button" class="btn btn-default" data-dismiss="modal">Fermer</button>
-						<button type="button" class="btn btn-primary">Commander
-							</button>
-					</div>
+
+<!-- Modal -->
+<div class="modal fade" id="myModal" tabindex="-1" role="dialog"
+	aria-labelledby="myModalLabel">
+	<div class="modal-dialog" role="document">
+		<div class="modal-content">
+			<div class="modal-header">
+				<button type="button" class="close" data-dismiss="modal"
+					aria-label="Close">
+					<span aria-hidden="true">&times;</span>
+				</button>
+				<h4 class="modal-title" id="myModalLabel">Panier</h4>
+			</div>
+			<div class="modal-body">
+				<div class="table-responsive">
+					<table class="table">
+						<thead>
+							<tr>
+								<th>Quantite</th>
+								<th>Prix</th>
+								<th>Dateajoutpanier</th>
+								<th>Id</th>
+								<th>Actions</th>
+							</tr>
+						</thead>
+						<tbody>
+							{% for panier in paniers %}
+							<tr>
+								<td><a
+									href="{{ path('paniers_show', { 'id': panier.id }) }}">{{ panier.quantite }}</a></td>
+								<td>{{ panier.prix }}</td>
+								<td>{% if panier.dateajoutpanier %} {{ panier.dateajoutpanier|date('Y-m-d H:i:s') }}
+									{% endif %}</td>
+								<td>{{ panier.id }}</td>
+								<td>
+									<ul>
+										<li><a
+											href="{{ path('paniers_show', { 'id': panier.id }) }}">show</a>
+										</li>
+										<li><a
+											href="{{ path('paniers_edit', { 'id': panier.id }) }}">edit</a>
+										</li>
+									</ul>
+								</td>
+							</tr>
+							{% endfor %}
+						</tbody>
+					</table>
 				</div>
 			</div>
+			<div class="modal-footer">
+				<button type="button" class="btn btn-default" data-dismiss="modal">Fermer</button>
+				<button type="button" class="btn btn-primary">Commander</button>
+			</div>
+		</div>
+	</div>
 
-{% endblock %}
+	{% endblock %}
