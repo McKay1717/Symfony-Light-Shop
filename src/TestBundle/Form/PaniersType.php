@@ -25,7 +25,7 @@ class PaniersType extends AbstractType {
 						'second' => 'Second' 
 				),
 				'data' => new \DateTime () 
-		) )->add ( 'commande' )->add ( 'produit', HiddenType::class )->add ( 'user', HiddenType::class );
+		) )->add ( 'commande' )->add ( 'produit' )->add ( 'user', HiddenType::class );
 	}
 	
 	/**
