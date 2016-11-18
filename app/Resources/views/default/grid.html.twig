@@ -16,7 +16,7 @@
 				<div class="panel-body">
 					<img alt="" src="{{ produit.photo }}">
 				</div>
-				<div class="panel-footer">
+				<div class="panel-footer clearfix">
 					{{ produit.prix }}
 					€
 					{% if produit.dispo %}
@@ -26,8 +26,13 @@
 					{% else %}
 					En Rupture
 					{% endif %}
-					<a class="btn btn-primary" href="{{ path('addtocard', {'id': produit.id})}}">
-						Ajouter au panier</a>
+					<div class="pull-right clearfix">
+						<form action="{{ path('addtocard', {'id': produit.id})}}"
+							method="post" class="form-inline">
+							<button type="submit" class="btn btn-default btn-xs">Ajouter au
+								panier</button>
+						</form>
+					</div>
 				</div>
 			</div>
 		</div>

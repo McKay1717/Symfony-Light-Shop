@@ -32,7 +32,7 @@ class DefaultController extends Controller {
 	/**
 	 * @Route("/{id}", name="addtocard")
 	 *
-	 * @method ({"GET"})
+	 * @method ({"POST"})
 	 */
 	public function addToCardAction(Produits $produit) {
 		$panier = new Paniers ();
