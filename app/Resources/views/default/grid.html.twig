@@ -1,6 +1,7 @@
 {% extends 'base.html.twig' %}
 
 {% block body %}
+
 <h1>Produits list</h1>
 <div class="container-fluid">
 	<div class="row">
@@ -29,8 +30,9 @@
 					<div class="pull-right clearfix">
 						<form action="{{ path('addtocard', {'id': produit.id})}}"
 							method="post" class="form-inline">
-							<button type="submit" class="btn btn-default btn-xs">Ajouter au
-								panier</button>
+							<button type="submit" class="btn btn-default btn-xs">
+								<span class="glyphicon glyphicon-plus"></span>
+							</button>
 						</form>
 					</div>
 				</div>
@@ -80,14 +82,10 @@
 									{% endif %}</td>
 								<td>{{ panier.id }}</td>
 								<td>
-									<ul>
-										<li><a
-											href="{{ path('paniers_show', { 'id': panier.id }) }}">show</a>
-										</li>
-										<li><a
-											href="{{ path('paniers_edit', { 'id': panier.id }) }}">edit</a>
-										</li>
-									</ul>
+									<div class="pull-right clearfix">
+										{{ del[panier.id]|raw }}
+
+									</div>
 								</td>
 							</tr>
 							{% endfor %}
