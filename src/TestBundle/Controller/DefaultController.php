@@ -16,12 +16,9 @@ class DefaultController extends Controller {
 	 * @method ({"GET"})
 	 */
 	public function indexAction() {
-		
 		$em = $this->getDoctrine ()->getManager ();
 		
-		
-		
-		$paniers = $em->getRepository('TestBundle:Paniers')->findAll();
+		$paniers = $em->getRepository ( 'TestBundle:Paniers' )->findAll ();
 		$produits = $em->getRepository ( 'TestBundle:Produits' )->findAll ();
 		
 		return $this->render ( 'default/grid.html.twig', array (
@@ -35,19 +32,30 @@ class DefaultController extends Controller {
 	 * @method ({"POST"})
 	 */
 	public function addToCardAction(Produits $produit) {
-		$panier = new Paniers ();
 		$user = $this->getDoctrine ()->getRepository ( 'TestBundle:Users' )->findOneById ( 1 );
-		
-		$panier->setUser ( $user );
-		$panier->setDateajoutpanier ( new \DateTime () );
-		$panier->setPrix ( $produit->getPrix () );
-		$panier->setQuantite ( 1 );
-		$panier->setProduit ( $produit );
+		try {
+			$panier = $this->getDoctrine ()->getRepository ( 'TestBundle:Paniers' )->findOneByProduit($produit);
+		} catch ( Exception $e ) {
+			$panier = new Paniers ();
+		}
+		if(empty($panier))
+		{
+			$panier = new Paniers();
+			$panier->setUser ( $user );
+			$panier->setDateajoutpanier ( new \DateTime () );
+			$panier->setPrix ( $produit->getPrix () );
+			$panier->setQuantite ( 1 );
+			$panier->setProduit ( $produit );
+		}else
+		{
+			$panier->setQuantite($panier->getQuantite()+1);
+		}
+	
 		
 		$em = $this->getDoctrine ()->getManager ();
 		$em->persist ( $panier );
 		$em->flush ( $panier );
 		
-		return $this->redirectToRoute('index');
+		return $this->redirectToRoute ( 'index' );
 	}
 }
