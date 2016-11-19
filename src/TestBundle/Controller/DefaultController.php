@@ -7,6 +7,8 @@ use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use TestBundle\Entity\Paniers;
 use TestBundle\Entity\Produits;
+use Symfony\Component\HttpFoundation\Request;
+use TestBundle\Entity\Commandes;
 
 class DefaultController extends Controller {
 	/**
@@ -14,7 +16,7 @@ class DefaultController extends Controller {
 	 *
 	 * @method ({"GET"})
 	 */
-	public function indexAction() {
+	public function indexAction(Request $request) {
 		$em = $this->getDoctrine ()->getManager ();
 		
 		$paniers = $em->getRepository ( 'TestBundle:Paniers' )->findAll ();
@@ -26,11 +28,13 @@ class DefaultController extends Controller {
 					'panier' => $entity 
 			) )->getContent ();
 		}
-		
+		$commandeButton = $this->forward ( 'TestBundle:Commandes:validCard',array ('request'=>$request))->getContent ();
+
 		return $this->render ( 'default/grid.html.twig', array (
 				'produits' => $produits,
 				'paniers' => $paniers,
-				'del' => $del 
+				'del' => $del,
+				'commander' => $commandeButton
 		) );
 	}
 }

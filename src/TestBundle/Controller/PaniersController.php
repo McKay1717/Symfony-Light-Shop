@@ -10,6 +10,7 @@ use Symfony\Component\HttpFoundation\Request;
 use TestBundle\Entity\Produits;
 use Symfony\Component\Validator\Constraints\NotBlank;
 use Symfony\Component\Validator\Constraints\Range;
+use Symfony\Component\HttpFoundation\Response;
 
 /**
  * Panier controller.
@@ -67,16 +68,18 @@ class PaniersController extends Controller {
 	 * @method ({"POST"})
 	 */
 	public function addToCardAction(Produits $produit, Request $request) {
-		$count = $request->request->get ( 'many' );
+		$count = 0 + $request->request->get ( 'many' );
 		$validator = $this->get ( 'validator' );
 		$errors = $validator->validate ( $count, array (
 				new NotBlank (),
 				new Range ( array (
 						'min' => 1,
-						'max' => 100 
+						'max' => $produit->getStock () 
 				) ) 
 		) );
+		
 		if (count ( $errors ) <= 0) {
+			
 			$user = $this->getDoctrine ()->getRepository ( 'TestBundle:Users' )->findOneById ( 1 );
 			try {
 				$panier = $this->getDoctrine ()->getRepository ( 'TestBundle:Paniers' )->findOneByProduit ( $produit );
@@ -87,16 +90,24 @@ class PaniersController extends Controller {
 				$panier = new Paniers ();
 				$panier->setUser ( $user );
 				$panier->setDateajoutpanier ( new \DateTime () );
-				$panier->setPrix ( $produit->getPrix () );
-				$panier->setQuantite ( 1 );
+				if ($panier->getQuantite () + $count <= $produit->getStock ())
+					$panier->setQuantite ( $count );
 				$panier->setProduit ( $produit );
+				$panier->setPrix ( $produit->getPrix () * $panier->getQuantite () );
 			} else {
-				$panier->setQuantite ( $panier->getQuantite () + $count );
+				if ($panier->getQuantite () + $count <= $produit->getStock ())
+					$panier->setQuantite ( $panier->getQuantite () + $count );
+				$panier->setPrix ( $produit->getPrix () * $panier->getQuantite () );
 			}
 			
 			$em = $this->getDoctrine ()->getManager ();
 			$em->persist ( $panier );
 			$em->flush ( $panier );
+		} else {
+			$response = new Response ();
+			$response->setStatusCode ( 400 );
+			$response->setContent ( $errors );
+			return $response;
 		}
 		
 		return $this->redirectToRoute ( 'index' );
