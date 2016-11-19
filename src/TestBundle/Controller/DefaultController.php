@@ -2,12 +2,11 @@
 
 namespace TestBundle\Controller;
 
-use Symfony\Bundle\FrameworkBundle\Controller\Controller;
-use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Method;
+use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
+use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use TestBundle\Entity\Paniers;
 use TestBundle\Entity\Produits;
-use TestBundle\Entity\Users;
 
 class DefaultController extends Controller {
 	/**
@@ -25,8 +24,7 @@ class DefaultController extends Controller {
 		foreach ( $paniers as $entity ) {
 			$del [$entity->getId ()] = $this->forward ( 'TestBundle:Paniers:generateDeleteButton', array (
 					'panier' => $entity 
-			)
-			 )->getContent();
+			) )->getContent ();
 		}
 		
 		return $this->render ( 'default/grid.html.twig', array (

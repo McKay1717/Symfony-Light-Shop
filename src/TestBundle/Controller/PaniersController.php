@@ -8,6 +8,8 @@ use Sensio\Bundle\FrameworkExtraBundle\Configuration\Method;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Symfony\Component\HttpFoundation\Request;
 use TestBundle\Entity\Produits;
+use Symfony\Component\Validator\Constraints\NotBlank;
+use Symfony\Component\Validator\Constraints\Range;
 
 /**
  * Panier controller.
@@ -64,27 +66,38 @@ class PaniersController extends Controller {
 	 *
 	 * @method ({"POST"})
 	 */
-	public function addToCardAction(Produits $produit) {
-		$user = $this->getDoctrine ()->getRepository ( 'TestBundle:Users' )->findOneById ( 1 );
-		try {
-			$panier = $this->getDoctrine ()->getRepository ( 'TestBundle:Paniers' )->findOneByProduit ( $produit );
-		} catch ( Exception $e ) {
-			$panier = new Paniers ();
+	public function addToCardAction(Produits $produit, Request $request) {
+		$count = $request->request->get ( 'many' );
+		$validator = $this->get ( 'validator' );
+		$errors = $validator->validate ( $count, array (
+				new NotBlank (),
+				new Range ( array (
+						'min' => 1,
+						'max' => 100 
+				) ) 
+		) );
+		if (count ( $errors ) <= 0) {
+			$user = $this->getDoctrine ()->getRepository ( 'TestBundle:Users' )->findOneById ( 1 );
+			try {
+				$panier = $this->getDoctrine ()->getRepository ( 'TestBundle:Paniers' )->findOneByProduit ( $produit );
+			} catch ( Exception $e ) {
+				$panier = new Paniers ();
+			}
+			if (empty ( $panier )) {
+				$panier = new Paniers ();
+				$panier->setUser ( $user );
+				$panier->setDateajoutpanier ( new \DateTime () );
+				$panier->setPrix ( $produit->getPrix () );
+				$panier->setQuantite ( 1 );
+				$panier->setProduit ( $produit );
+			} else {
+				$panier->setQuantite ( $panier->getQuantite () + $count );
+			}
+			
+			$em = $this->getDoctrine ()->getManager ();
+			$em->persist ( $panier );
+			$em->flush ( $panier );
 		}
-		if (empty ( $panier )) {
-			$panier = new Paniers ();
-			$panier->setUser ( $user );
-			$panier->setDateajoutpanier ( new \DateTime () );
-			$panier->setPrix ( $produit->getPrix () );
-			$panier->setQuantite ( 1 );
-			$panier->setProduit ( $produit );
-		} else {
-			$panier->setQuantite ( $panier->getQuantite () + 1 );
-		}
-		
-		$em = $this->getDoctrine ()->getManager ();
-		$em->persist ( $panier );
-		$em->flush ( $panier );
 		
 		return $this->redirectToRoute ( 'index' );
 	}
@@ -114,8 +127,9 @@ class PaniersController extends Controller {
 	 */
 	public function generateDeleteButtonAction(Paniers $panier) {
 		$deleteForm = $this->createDeleteForm ( $panier );
-		return $this->render ('paniers/delete.html.twig', array (
-				'del' => $deleteForm->createView ()));
+		return $this->render ( 'paniers/delete.html.twig', array (
+				'del' => $deleteForm->createView () 
+		) );
 	}
 	
 	/**
@@ -159,17 +173,14 @@ class PaniersController extends Controller {
 		if ($form->isSubmitted () && $form->isValid ()) {
 			
 			$em = $this->getDoctrine ()->getManager ();
-			if ($panier->getQuantite () <= 1)
-				$em->remove ( $panier );
-			else
-				$panier->setQuantite ( $panier->getQuantite () - 1 );
+			
+			$em->remove ( $panier );
 			
 			$em->flush ( $panier );
 		}
 		
 		return $this->redirectToRoute ( 'index' );
 	}
-	
 	
 	/**
 	 * Creates a form to delete a panier entity.
