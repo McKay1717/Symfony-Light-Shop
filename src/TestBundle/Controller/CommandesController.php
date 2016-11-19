@@ -73,7 +73,7 @@ class CommandesController extends Controller {
 		$commande->setDateAchat ( new \DateTime () );
 		$paniers = $em->getRepository ( 'TestBundle:Paniers' )->findAll ();
 		foreach ( $paniers as $entity ) {
-			if ($entity->getCommande () != null) {
+			if ($entity->getCommande () == null) {
 				$commande->setPrix ( $commande->getPrix () + $entity->getPrix () );
 				$commande->setUser ( $entity->getUser () );
 			}

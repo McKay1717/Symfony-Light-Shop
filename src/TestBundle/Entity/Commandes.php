@@ -161,5 +161,17 @@ class Commandes
     public function getUser()
     {
         return $this->user;
+    }    /**
+     * toString
+     * @return string
+     */
+    public function __toString()
+    {
+    	$string = "Commande n°";
+    	$string .= $this->getId();
+    	$string .= " de ";
+    	$string .= $this->getUser()->__toString();
+    	return $string;
     }
+    
 }

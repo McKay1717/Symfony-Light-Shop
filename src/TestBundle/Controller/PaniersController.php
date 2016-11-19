@@ -81,10 +81,11 @@ class PaniersController extends Controller {
 		if (count ( $errors ) <= 0) {
 			
 			$user = $this->getDoctrine ()->getRepository ( 'TestBundle:Users' )->findOneById ( 1 );
-			try {
-				$panier = $this->getDoctrine ()->getRepository ( 'TestBundle:Paniers' )->findOneByProduit ( $produit );
-			} catch ( Exception $e ) {
-				$panier = new Paniers ();
+			
+			$tmp = $this->getDoctrine ()->getRepository ( 'TestBundle:Paniers' )->findByProduit ( $produit );
+			foreach ( $tmp as $entity ) {
+				if ($entity->getUser () == $user && $entity->getCommande () == null)
+					$panier = $entity;
 			}
 			if (empty ( $panier )) {
 				$panier = new Paniers ();
