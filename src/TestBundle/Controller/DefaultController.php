@@ -28,7 +28,7 @@ class DefaultController extends Controller {
 					'panier' => $entity 
 			) )->getContent ();
 		}
-		$commandeButton = $this->forward ( 'TestBundle:Commandes:validCard',array ('request'=>$request))->getContent ();
+		$commandeButton = $this->forward ( 'TestBundle:Commandes:validCard',array ('request'=>$request,'internalcall'=> true))->getContent ();
 
 		return $this->render ( 'default/grid.html.twig', array (
 				'produits' => $produits,

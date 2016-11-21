@@ -65,24 +65,30 @@ class CommandesController extends Controller {
 	 *
 	 * @Route("/validcard", name="commandes_valid")
 	 *
-	 * @method ({"GET", "POST"})
+	 * @method ({"GET","POST"})
 	 */
 	public function validCardAction(Request $request) {
+		
+
 		$commande = new Commandes ();
 		$em = $this->getDoctrine ()->getManager ();
 		$commande->setDateAchat ( new \DateTime () );
 		$paniers = $em->getRepository ( 'TestBundle:Paniers' )->findAll ();
+		$count = 0;
 		foreach ( $paniers as $entity ) {
 			if ($entity->getCommande () == null) {
 				$commande->setPrix ( $commande->getPrix () + $entity->getPrix () );
 				$commande->setUser ( $entity->getUser () );
+				$count ++;
 			}
 		}
+		if($count )
+		
 		$commande->setEtat ( $em->getRepository ( 'TestBundle:Etats' )->findOneByLibelle ( "A préparer" ) );
 		
 		$form = $this->createFormBuilder ( $commande )->setAction ( $this->generateUrl ( 'commandes_valid' ) )->setMethod ( "POST" )->getForm ();
 		$form->handleRequest ( $request );
-		if ($form->isSubmitted () && $form->isValid ()) {
+		if ($form->isSubmitted () && $form->isValid () && $count > 0) {
 			$em = $this->getDoctrine ()->getManager ();
 			$em->persist ( $commande );
 			$em->flush ();
