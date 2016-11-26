@@ -6,28 +6,17 @@
     <table class="table">
         <thead>
             <tr>
-                <th>Prix</th>
-                <th>Dateachat</th>
-                <th>Id</th>
-                <th>Actions</th>
+                <th>N° de commande</th>
+                <th>Date d'achat</th>
+                <th>Statuts</th>
             </tr>
         </thead>
         <tbody>
         {% for commande in commandes %}
             <tr>
-                <td><a href="{{ path('commandes_show', { 'id': commande.id }) }}">{{ commande.prix }}</a></td>
-                <td>{% if commande.dateAchat %}{{ commande.dateAchat|date('Y-m-d H:i:s') }}{% endif %}</td>
                 <td>{{ commande.id }}</td>
-                <td>
-                    <ul>
-                        <li>
-                            <a href="{{ path('commandes_show', { 'id': commande.id }) }}">show</a>
-                        </li>
-                        <li>
-                            <a href="{{ path('commandes_edit', { 'id': commande.id }) }}">edit</a>
-                        </li>
-                    </ul>
-                </td>
+                <td>{% if commande.dateAchat %}{{ commande.dateAchat|date('Y-m-d H:i:s') }}{% endif %}</td>
+                <td>{{ commande.etat }}</td>
             </tr>
         {% endfor %}
         </tbody>

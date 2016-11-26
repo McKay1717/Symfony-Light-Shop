@@ -2,13 +2,12 @@
 
 namespace TestBundle\Controller;
 
-use Symfony\Component\HttpFoundation\Request;
-use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Method;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
+use Symfony\Bundle\FrameworkBundle\Controller\Controller;
+use Symfony\Component\HttpFoundation\Request;
 use TestBundle\Entity\Commandes;
 use TestBundle\Form\CommandesType;
-use Symfony\Component\Form\Extension\Core\Type\SubmitType;
 
 /**
  * Commandes controller.
@@ -32,6 +31,25 @@ class CommandesController extends Controller {
 				'commandes' => $commandes 
 		) );
 	}
+	
+	/**
+	 * Lists all Commandes entities by user.
+	 *
+	 * @Route("/user", name="commandes_user")
+	 *
+	 * @method ("GET")
+	 */
+	public function indexUserComandeAction() {
+		$em = $this->getDoctrine ()->getManager ();
+	
+		$user = $this->getDoctrine ()->getRepository ( 'TestBundle:Users' )->findOneById ( 1 );
+		$commandes = $em->getRepository ( 'TestBundle:Commandes' )->findByUser($user);
+	
+		return $this->render ( 'commandes/index.html.twig', array (
+				'commandes' => $commandes
+		) );
+	}
+	
 	
 	/**
 	 * Creates a new Commandes entity.
@@ -82,7 +100,7 @@ class CommandesController extends Controller {
 				$count ++;
 			}
 		}
-		if($count )
+		//if($count )
 		
 		$commande->setEtat ( $em->getRepository ( 'TestBundle:Etats' )->findOneByLibelle ( "A préparer" ) );
 		

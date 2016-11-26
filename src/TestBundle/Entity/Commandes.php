@@ -3,6 +3,7 @@
 namespace TestBundle\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\Validator\Constraints as Assert;
 
 /**
  * Commandes
@@ -16,6 +17,7 @@ class Commandes
      * @var float
      *
      * @ORM\Column(name="prix", type="float", precision=6, scale=2, nullable=false)
+     * @Assert\Type(type="float",message="The value {{ value }} is not a valid {{ type }}.")
      */
     private $prix;
 
@@ -23,6 +25,7 @@ class Commandes
      * @var \DateTime
      *
      * @ORM\Column(name="date_achat", type="datetime", nullable=false)
+     * @Assert\DateTime()
      */
     private $dateAchat = 'CURRENT_TIMESTAMP';
 
@@ -32,12 +35,13 @@ class Commandes
      * @ORM\Column(name="id", type="integer")
      * @ORM\Id
      * @ORM\GeneratedValue(strategy="IDENTITY")
+     * @Assert\Type(type="integer",message="The value {{ value }} is not a valid {{ type }}.")
      */
     private $id;
 
     /**
      * @var \TestBundle\Entity\Etats
-     *
+     * @Assert\Valid()
      * @ORM\ManyToOne(targetEntity="TestBundle\Entity\Etats")
      * @ORM\JoinColumns({
      *   @ORM\JoinColumn(name="etat_id", referencedColumnName="id")
@@ -47,7 +51,7 @@ class Commandes
 
     /**
      * @var \TestBundle\Entity\Users
-     *
+     * @Assert\Valid()
      * @ORM\ManyToOne(targetEntity="TestBundle\Entity\Users")
      * @ORM\JoinColumns({
      *   @ORM\JoinColumn(name="user_id", referencedColumnName="id")

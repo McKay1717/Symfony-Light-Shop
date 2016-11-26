@@ -3,6 +3,7 @@
 namespace TestBundle\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\Validator\Constraints as Assert;
 
 /**
  * Produits
@@ -16,7 +17,11 @@ class Produits
      * @var string
      *
      * @ORM\Column(name="nom", type="string", length=50, nullable=true)
-     */
+     * 	     @Assert\NotBlank()
+	 *      @Assert\NotNull()
+	 *      @Assert\Length(min = 3,max = 50,minMessage = "Your first name must be at least {{ limit }} characters long", maxMessage = "Your first name cannot be longer than {{ limit }} characters" )
+	 */
+    
     private $nom;
 
     /**
@@ -37,6 +42,7 @@ class Produits
      * @var boolean
      *
      * @ORM\Column(name="dispo", type="boolean", nullable=false)
+     * @Assert\Type(type="bool",message="The value {{ value }} is not a valid {{ type }}.")
      */
     private $dispo;
 
@@ -58,7 +64,7 @@ class Produits
 
     /**
      * @var \TestBundle\Entity\Typeproduits
-     *
+     * @Assert\Valid()
      * @ORM\ManyToOne(targetEntity="TestBundle\Entity\Typeproduits")
      * @ORM\JoinColumns({
      *   @ORM\JoinColumn(name="typeProduit_id", referencedColumnName="id")
