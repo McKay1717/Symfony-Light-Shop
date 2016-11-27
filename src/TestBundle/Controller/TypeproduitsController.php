@@ -22,6 +22,9 @@ class TypeproduitsController extends Controller
      */
     public function indexAction()
     {
+    	if (!$this->get('security.authorization_checker')->isGranted('ROLE_ADMIN')) {
+    		throw $this->createAccessDeniedException();
+    	}
         $em = $this->getDoctrine()->getManager();
 
         $typeproduits = $em->getRepository('TestBundle:Typeproduits')->findAll();
@@ -39,7 +42,10 @@ class TypeproduitsController extends Controller
      */
     public function newAction(Request $request)
     {
-        $typeproduit = new Typeproduit();
+    	if (!$this->get('security.authorization_checker')->isGranted('ROLE_ADMIN')) {
+    		throw $this->createAccessDeniedException();
+    	}
+        $typeproduit = new Typeproduits();
         $form = $this->createForm('TestBundle\Form\TypeproduitsType', $typeproduit);
         $form->handleRequest($request);
 
@@ -65,6 +71,9 @@ class TypeproduitsController extends Controller
      */
     public function showAction(Typeproduits $typeproduit)
     {
+    	if (!$this->get('security.authorization_checker')->isGranted('ROLE_ADMIN')) {
+    		throw $this->createAccessDeniedException();
+    	}
         $deleteForm = $this->createDeleteForm($typeproduit);
 
         return $this->render('typeproduits/show.html.twig', array(
@@ -81,6 +90,9 @@ class TypeproduitsController extends Controller
      */
     public function editAction(Request $request, Typeproduits $typeproduit)
     {
+    	if (!$this->get('security.authorization_checker')->isGranted('ROLE_ADMIN')) {
+    		throw $this->createAccessDeniedException();
+    	}
         $deleteForm = $this->createDeleteForm($typeproduit);
         $editForm = $this->createForm('TestBundle\Form\TypeproduitsType', $typeproduit);
         $editForm->handleRequest($request);
@@ -106,6 +118,9 @@ class TypeproduitsController extends Controller
      */
     public function deleteAction(Request $request, Typeproduits $typeproduit)
     {
+    	if (!$this->get('security.authorization_checker')->isGranted('ROLE_ADMIN')) {
+    		throw $this->createAccessDeniedException();
+    	}
         $form = $this->createDeleteForm($typeproduit);
         $form->handleRequest($request);
 
@@ -127,6 +142,9 @@ class TypeproduitsController extends Controller
      */
     private function createDeleteForm(Typeproduits $typeproduit)
     {
+    	if (!$this->get('security.authorization_checker')->isGranted('ROLE_ADMIN')) {
+    		throw $this->createAccessDeniedException();
+    	}
         return $this->createFormBuilder()
             ->setAction($this->generateUrl('typeproduits_delete', array('id' => $typeproduit->getId())))
             ->setMethod('DELETE')

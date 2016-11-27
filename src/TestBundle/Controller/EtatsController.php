@@ -24,6 +24,9 @@ class EtatsController extends Controller
      */
     public function indexAction()
     {
+    	if (!$this->get('security.authorization_checker')->isGranted('ROLE_ADMIN')) {
+    		throw $this->createAccessDeniedException();
+    	}
         $em = $this->getDoctrine()->getManager();
 
         $etats = $em->getRepository('TestBundle:Etats')->findAll();
@@ -41,6 +44,9 @@ class EtatsController extends Controller
      */
     public function newAction(Request $request)
     {
+    	if (!$this->get('security.authorization_checker')->isGranted('ROLE_ADMIN')) {
+    		throw $this->createAccessDeniedException();
+    	}
         $etat = new Etats();
         $form = $this->createForm('TestBundle\Form\EtatsType', $etat);
         $form->handleRequest($request);
@@ -67,6 +73,9 @@ class EtatsController extends Controller
      */
     public function showAction(Etats $etat)
     {
+    	if (!$this->get('security.authorization_checker')->isGranted('ROLE_ADMIN')) {
+    		throw $this->createAccessDeniedException();
+    	}
         $deleteForm = $this->createDeleteForm($etat);
 
         return $this->render('etats/show.html.twig', array(
@@ -83,6 +92,9 @@ class EtatsController extends Controller
      */
     public function editAction(Request $request, Etats $etat)
     {
+    	if (!$this->get('security.authorization_checker')->isGranted('ROLE_ADMIN')) {
+    		throw $this->createAccessDeniedException();
+    	}
         $deleteForm = $this->createDeleteForm($etat);
         $editForm = $this->createForm('TestBundle\Form\EtatsType', $etat);
         $editForm->handleRequest($request);
@@ -110,6 +122,9 @@ class EtatsController extends Controller
      */
     public function deleteAction(Request $request, Etats $etat)
     {
+    	if (!$this->get('security.authorization_checker')->isGranted('ROLE_ADMIN')) {
+    		throw $this->createAccessDeniedException();
+    	}
         $form = $this->createDeleteForm($etat);
         $form->handleRequest($request);
 
@@ -131,6 +146,9 @@ class EtatsController extends Controller
      */
     private function createDeleteForm(Etats $etat)
     {
+    	if (!$this->get('security.authorization_checker')->isGranted('ROLE_ADMIN')) {
+    		throw $this->createAccessDeniedException();
+    	}
         return $this->createFormBuilder()
             ->setAction($this->generateUrl('etats_delete', array('id' => $etat->getId())))
             ->setMethod('DELETE')

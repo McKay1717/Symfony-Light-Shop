@@ -28,7 +28,7 @@ class PaniersController extends Controller {
 	public function indexAction() {
 		$em = $this->getDoctrine ()->getManager ();
 		
-		$paniers = $em->getRepository ( 'TestBundle:Paniers' )->findAll ();
+		$paniers = $em->getRepository ( 'TestBundle:Paniers' )->findByUser($this->get('security.token_storage')->getToken()->getUser());
 		
 		return $this->render ( 'paniers/index.html.twig', array (
 				'paniers' => $paniers 
@@ -80,7 +80,7 @@ class PaniersController extends Controller {
 		
 		if (count ( $errors ) <= 0) {
 			
-			$user = $this->getDoctrine ()->getRepository ( 'TestBundle:Users' )->findOneById ( 1 );
+			$user = $this->get('security.token_storage')->getToken()->getUser();
 			
 			$tmp = $this->getDoctrine ()->getRepository ( 'TestBundle:Paniers' )->findByProduit ( $produit );
 			foreach ( $tmp as $entity ) {

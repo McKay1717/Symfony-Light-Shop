@@ -23,6 +23,9 @@ class CommandesController extends Controller {
 	 * @method ("GET")
 	 */
 	public function indexAction() {
+		if (!$this->get('security.authorization_checker')->isGranted('ROLE_ADMIN')) {
+			throw $this->createAccessDeniedException();
+		}
 		$em = $this->getDoctrine ()->getManager ();
 		
 		$commandes = $em->getRepository ( 'TestBundle:Commandes' )->findAll ();
@@ -40,9 +43,13 @@ class CommandesController extends Controller {
 	 * @method ("GET")
 	 */
 	public function indexUserComandeAction() {
+		if (!$this->get('security.authorization_checker')->isGranted('IS_AUTHENTICATED_FULLY')) {
+			throw $this->createAccessDeniedException();
+		}
 		$em = $this->getDoctrine ()->getManager ();
+		
 	
-		$user = $this->getDoctrine ()->getRepository ( 'TestBundle:Users' )->findOneById ( 1 );
+		$user = $this->get('security.token_storage')->getToken()->getUser();
 		$commandes = $em->getRepository ( 'TestBundle:Commandes' )->findByUser($user);
 	
 		return $this->render ( 'commandes/index.html.twig', array (
@@ -59,6 +66,9 @@ class CommandesController extends Controller {
 	 * @method ({"GET", "POST"})
 	 */
 	public function newAction(Request $request) {
+		if (!$this->get('security.authorization_checker')->isGranted('IS_AUTHENTICATED_FULLY')) {
+			throw $this->createAccessDeniedException();
+		}
 		$commande = new Commandes ();
 		$form = $this->createForm ( 'TestBundle\Form\CommandesType', $commande );
 		$form->handleRequest ( $request );
@@ -88,6 +98,9 @@ class CommandesController extends Controller {
 	public function validCardAction(Request $request) {
 		
 
+		if (!$this->get('security.authorization_checker')->isGranted('IS_AUTHENTICATED_FULLY')) {
+			throw $this->createAccessDeniedException();
+		}
 		$commande = new Commandes ();
 		$em = $this->getDoctrine ()->getManager ();
 		$commande->setDateAchat ( new \DateTime () );
@@ -151,6 +164,9 @@ class CommandesController extends Controller {
 	 * @method ({"GET", "POST"})
 	 */
 	public function editAction(Request $request, Commandes $commande) {
+		if (!$this->get('security.authorization_checker')->isGranted('ROLE_ADMIN')) {
+			throw $this->createAccessDeniedException();
+		}
 		$deleteForm = $this->createDeleteForm ( $commande );
 		$editForm = $this->createForm ( 'TestBundle\Form\CommandesType', $commande );
 		$editForm->handleRequest ( $request );
@@ -180,6 +196,9 @@ class CommandesController extends Controller {
 	 * @method ("DELETE")
 	 */
 	public function deleteAction(Request $request, Commandes $commande) {
+		if (!$this->get('security.authorization_checker')->isGranted('ROLE_ADMIN')) {
+			throw $this->createAccessDeniedException();
+		}
 		$form = $this->createDeleteForm ( $commande );
 		$form->handleRequest ( $request );
 		
@@ -201,6 +220,9 @@ class CommandesController extends Controller {
 	 * @return \Symfony\Component\Form\Form The form
 	 */
 	private function createDeleteForm(Commandes $commande) {
+		if (!$this->get('security.authorization_checker')->isGranted('ROLE_ADMIN')) {
+			throw $this->createAccessDeniedException();
+		}
 		return $this->createFormBuilder ()->setAction ( $this->generateUrl ( 'commandes_delete', array (
 				'id' => $commande->getId () 
 		) ) )->setMethod ( 'DELETE' )->getForm ();

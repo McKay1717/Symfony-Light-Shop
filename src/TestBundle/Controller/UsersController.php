@@ -22,6 +22,9 @@ class UsersController extends Controller
      */
     public function indexAction()
     {
+    	if (!$this->get('security.authorization_checker')->isGranted('ROLE_ADMIN')) {
+    		throw $this->createAccessDeniedException();
+    	}
         $em = $this->getDoctrine()->getManager();
 
         $users = $em->getRepository('TestBundle:Users')->findAll();
@@ -39,6 +42,9 @@ class UsersController extends Controller
      */
     public function newAction(Request $request)
     {
+    	if (!$this->get('security.authorization_checker')->isGranted('ROLE_ADMIN')) {
+    		throw $this->createAccessDeniedException();
+    	}
         $user = new Users();
         $form = $this->createForm('TestBundle\Form\UsersType', $user);
         $form->handleRequest($request);
@@ -65,6 +71,9 @@ class UsersController extends Controller
      */
     public function showAction(Users $user)
     {
+    	if (!$this->get('security.authorization_checker')->isGranted('ROLE_ADMIN')) {
+    		throw $this->createAccessDeniedException();
+    	}
         $deleteForm = $this->createDeleteForm($user);
 
         return $this->render('users/show.html.twig', array(
@@ -81,6 +90,9 @@ class UsersController extends Controller
      */
     public function editAction(Request $request, Users $user)
     {
+    	if (!$this->get('security.authorization_checker')->isGranted('ROLE_ADMIN') || !$this->get('security.token_storage')->getToken()->getUser() != $user) {
+    		throw $this->createAccessDeniedException();
+    	}
         $deleteForm = $this->createDeleteForm($user);
         $editForm = $this->createForm('TestBundle\Form\UsersType', $user);
         $editForm->handleRequest($request);
@@ -106,6 +118,9 @@ class UsersController extends Controller
      */
     public function deleteAction(Request $request, Users $user)
     {
+    	if (!$this->get('security.authorization_checker')->isGranted('ROLE_ADMIN')) {
+    		throw $this->createAccessDeniedException();
+    	}
         $form = $this->createDeleteForm($user);
         $form->handleRequest($request);
 
@@ -127,6 +142,9 @@ class UsersController extends Controller
      */
     private function createDeleteForm(Users $user)
     {
+    	if (!$this->get('security.authorization_checker')->isGranted('ROLE_ADMIN')) {
+    		throw $this->createAccessDeniedException();
+    	}
         return $this->createFormBuilder()
             ->setAction($this->generateUrl('users_delete', array('id' => $user->getId())))
             ->setMethod('DELETE')
