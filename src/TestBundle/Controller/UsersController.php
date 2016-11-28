@@ -90,7 +90,7 @@ class UsersController extends Controller
      */
     public function editAction(Request $request, Users $user)
     {
-    	if (!$this->get('security.authorization_checker')->isGranted('ROLE_ADMIN') || !$this->get('security.token_storage')->getToken()->getUser() != $user) {
+    	if (!$this->get('security.authorization_checker')->isGranted('ROLE_ADMIN')) {
     		throw $this->createAccessDeniedException();
     	}
         $deleteForm = $this->createDeleteForm($user);
@@ -108,6 +108,31 @@ class UsersController extends Controller
             'edit_form' => $editForm->createView(),
             'delete_form' => $deleteForm->createView(),
         ));
+    }
+    /**
+     * Displays a form to edit an existing user entity.
+     *
+     * @Route("/{id}/editUser", name="users_edituser")
+     * @Method({"GET", "POST"})
+     */
+    public function edituserAction(Request $request, Users $user)
+    {
+    	if ($this->get('security.token_storage')->getToken()->getUser() != $user) {
+    		throw $this->createAccessDeniedException();
+    	}
+    	$editForm = $this->createForm('TestBundle\Form\UsersType', $user);
+    	$editForm->handleRequest($request);
+    
+    	if ($editForm->isSubmitted() && $editForm->isValid()) {
+    		$this->getDoctrine()->getManager()->flush();
+    
+    		return $this->redirectToRoute('users_edituser', array('id' => $user->getId()));
+    	}
+    
+    	return $this->render('users/edituser.html.twig', array(
+    			'user' => $user,
+    			'edit_form' => $editForm->createView()
+    	));
     }
 
     /**
