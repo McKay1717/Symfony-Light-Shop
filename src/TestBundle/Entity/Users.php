@@ -330,7 +330,8 @@ class Users implements UserInterface, \Serializable {
 	 * @see \Symfony\Component\Security\Core\User\UserInterface::eraseCredentials()
 	 */
 	public function eraseCredentials() {
-		// TODO: Auto-generated method stub
+		$this->setPassword(null);
+		
 	}
 	/**
 	 *

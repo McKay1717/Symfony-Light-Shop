@@ -3,4 +3,4 @@ test:
     type:     annotation
     prefix:   /
 logout:
-    path: /logout
+   path: /logout

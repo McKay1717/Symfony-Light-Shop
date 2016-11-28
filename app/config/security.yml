@@ -21,12 +21,17 @@ security:
             security: false
             
         main:
-            pattern:    ^/
-            http_basic: ~
             provider: our_db_provider
+            pattern: ^/.*$
+            anonymous: ~
+            form_login: 
+                login_path: login
+                check_path: login
             logout:
-                path:   /logout
-                target: /
+                 invalidate_session: false 
+                 path:   /logout
+                                               
+
             # activate different ways to authenticate
 
             # http_basic: ~
