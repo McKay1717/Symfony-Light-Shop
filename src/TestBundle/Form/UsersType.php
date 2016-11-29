@@ -8,6 +8,7 @@ use Symfony\Component\OptionsResolver\OptionsResolver;
 use Symfony\Component\Form\Extension\Core\Type\PasswordType;
 use ZipCodeValidator\Constraints\ZipCode;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
+use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
 
 class UsersType extends AbstractType {
 	/**
@@ -22,7 +23,15 @@ class UsersType extends AbstractType {
 								'iso' => 'FR' 
 						) ) 
 				) 
-		) )->add ( 'ville' )->add ( 'adresse' )->add ( 'valide' )->add ( 'droit' );
+		) )->add ( 'ville' )->add ( 'adresse' )->add ( 'valide' )->
+
+		add ( 'droit', ChoiceType::class, array (
+				'choices' => array (
+						'' => null,
+						'Admin' => "ROLE_ADMIN",
+						'Client' => "ROLE_CLIENT" 
+				) 
+		) );
 	}
 	
 	/**
@@ -35,6 +44,8 @@ class UsersType extends AbstractType {
 				'data_class' => 'TestBundle\Entity\Users' 
 		) );
 	}
+
+
 	
 	/**
 	 *
