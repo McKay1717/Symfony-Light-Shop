@@ -5,34 +5,43 @@ namespace TestBundle\Form;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
+use Symfony\Component\Form\Extension\Core\Type\PasswordType;
+use ZipCodeValidator\Constraints\ZipCode;
+use Symfony\Component\Form\Extension\Core\Type\TextType;
 
-class UsersType extends AbstractType
-{
-    /**
-     * {@inheritdoc}
-     */
-    public function buildForm(FormBuilderInterface $builder, array $options)
-    {
-        $builder->add('email')->add('password')->add('login')->add('nom')->add('codePostal')->add('ville')->add('adresse')->add('valide')->add('droit')        ;
-    }
-    
-    /**
-     * {@inheritdoc}
-     */
-    public function configureOptions(OptionsResolver $resolver)
-    {
-        $resolver->setDefaults(array(
-            'data_class' => 'TestBundle\Entity\Users'
-        ));
-    }
-
-    /**
-     * {@inheritdoc}
-     */
-    public function getBlockPrefix()
-    {
-        return 'testbundle_users';
-    }
-
-
+class UsersType extends AbstractType {
+	/**
+	 *
+	 * {@inheritdoc}
+	 *
+	 */
+	public function buildForm(FormBuilderInterface $builder, array $options) {
+		$builder->add ( 'email' )->add ( 'password', PasswordType::class )->add ( 'login' )->add ( 'nom' )->add ( 'codePostal', TextType::class, array (
+				'constraints' => array (
+						new ZipCode ( array (
+								'iso' => 'FR' 
+						) ) 
+				) 
+		) )->add ( 'ville' )->add ( 'adresse' )->add ( 'valide' )->add ( 'droit' );
+	}
+	
+	/**
+	 *
+	 * {@inheritdoc}
+	 *
+	 */
+	public function configureOptions(OptionsResolver $resolver) {
+		$resolver->setDefaults ( array (
+				'data_class' => 'TestBundle\Entity\Users' 
+		) );
+	}
+	
+	/**
+	 *
+	 * {@inheritdoc}
+	 *
+	 */
+	public function getBlockPrefix() {
+		return 'testbundle_users';
+	}
 }

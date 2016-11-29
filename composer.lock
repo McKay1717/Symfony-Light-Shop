@@ -4,9 +4,58 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "hash": "bff8e0ed693bf93332db22eddd083722",
-    "content-hash": "928e0061dd993c860fc0de6a8a239e09",
+    "hash": "2135b6ce8b73359fccb01ca443f570a9",
+    "content-hash": "9b05936a5ebaeffa93d9e08084a6f918",
     "packages": [
+        {
+            "name": "barbieswimcrew/zip-code-validator",
+            "version": "v1.0.7",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/barbieswimcrew/zip-code-validator.git",
+                "reference": "0cfc94791c0862c2d4ac2fc736d2b69e8fe2f803"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/barbieswimcrew/zip-code-validator/zipball/0cfc94791c0862c2d4ac2fc736d2b69e8fe2f803",
+                "reference": "0cfc94791c0862c2d4ac2fc736d2b69e8fe2f803",
+                "shasum": ""
+            },
+            "require": {
+                "php": ">=5.4.0",
+                "symfony/validator": ">=2.1"
+            },
+            "type": "library",
+            "autoload": {
+                "psr-4": {
+                    "ZipCodeValidator\\": "src/ZipCodeValidator"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Martin Schindler"
+                }
+            ],
+            "description": "Constraint class for international zipcode validation",
+            "keywords": [
+                "Symfony2",
+                "constraint",
+                "constraints",
+                "form",
+                "postal code",
+                "postalcode",
+                "symfony",
+                "validation",
+                "validator",
+                "zip code",
+                "zipcode"
+            ],
+            "time": "2016-10-18 15:30:06"
+        },
         {
             "name": "braincrafted/bootstrap-bundle",
             "version": "dev-master",
