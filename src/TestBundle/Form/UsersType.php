@@ -9,6 +9,8 @@ use Symfony\Component\Form\Extension\Core\Type\PasswordType;
 use ZipCodeValidator\Constraints\ZipCode;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
+
+
 use EWZ\Bundle\RecaptchaBundle\Form\Type\EWZRecaptchaType;
 
 class UsersType extends AbstractType {
@@ -45,8 +47,7 @@ class UsersType extends AbstractType {
 				'data_class' => 'TestBundle\Entity\Users' 
 		) );
 	}
-
-
+	
 	
 	/**
 	 *

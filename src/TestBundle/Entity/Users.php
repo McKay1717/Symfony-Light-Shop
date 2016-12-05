@@ -6,6 +6,7 @@ use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\Security\Core\User\UserInterface;
 use Symfony\Component\Validator\Constraints as Assert;
 use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
+use EWZ\Bundle\RecaptchaBundle\Validator\Constraints as Recaptcha;
 
 /**
  * Users
@@ -15,6 +16,11 @@ use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
  * @UniqueEntity("email")
  */
 class Users implements UserInterface, \Serializable {
+
+	/**
+	 * @Recaptcha\IsTrue
+ 	*/
+	public $recaptcha;
 	/**
 	 *
 	 * @var string @ORM\Column(name="email", type="string", length=255, nullable=false)

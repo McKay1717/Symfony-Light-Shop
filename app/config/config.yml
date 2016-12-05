@@ -80,8 +80,7 @@ twig:
     form_themes:
         - 'bootstrap_3_layout.html.twig'
 ewz_recaptcha:
-    locale_from_request: true
     public_key:  6LfQ7g0UAAAAANot0bQBonxZUqEIkn8RdqZD1VkV
-    private_key: 6LfQ7g0UAAAAAB31Th106DY
+    private_key: 6LfQ7g0UAAAAAB31Th106DY_6vPOfHJf-Ilk10AU
     # Not needed as "%kernel.default_locale%" is the default value for the locale key
     locale_key:  %kernel.default_locale%
