@@ -33,7 +33,7 @@ CREATE TABLE `commandes` (
   KEY `fk_commandes_etats` (`etat_id`),
   CONSTRAINT `fk_commandes_etats` FOREIGN KEY (`etat_id`) REFERENCES `etats` (`id`),
   CONSTRAINT `fk_commandes_users` FOREIGN KEY (`user_id`) REFERENCES `users` (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=11 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -42,7 +42,6 @@ CREATE TABLE `commandes` (
 
 LOCK TABLES `commandes` WRITE;
 /*!40000 ALTER TABLE `commandes` DISABLE KEYS */;
-INSERT INTO `commandes` VALUES (1,1,200.00,'2016-11-19 12:51:36',1),(2,1,8.50,'2016-11-19 13:02:45',1),(3,1,108.50,'2016-11-19 13:10:42',1),(4,1,108.50,'2016-11-19 13:11:00',1),(5,1,108.50,'2016-11-19 13:11:16',1),(6,1,917.00,'2016-11-19 13:23:24',1),(7,1,6346.50,'2016-11-19 13:36:00',1),(8,1,100.00,'2016-11-19 13:49:15',1),(9,1,105.50,'2016-11-19 13:54:50',1),(10,1,5000.00,'2016-11-19 13:55:15',1);
 /*!40000 ALTER TABLE `commandes` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -92,7 +91,7 @@ CREATE TABLE `paniers` (
   CONSTRAINT `fk_paniers_commandes` FOREIGN KEY (`commande_id`) REFERENCES `commandes` (`id`),
   CONSTRAINT `fk_paniers_produits` FOREIGN KEY (`produit_id`) REFERENCES `produits` (`id`),
   CONSTRAINT `fk_paniers_users` FOREIGN KEY (`user_id`) REFERENCES `users` (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -101,7 +100,6 @@ CREATE TABLE `paniers` (
 
 LOCK TABLES `paniers` WRITE;
 /*!40000 ALTER TABLE `paniers` DISABLE KEYS */;
-INSERT INTO `paniers` VALUES (1,4,400.00,'2016-11-19 13:47:38',1,1,10),(2,1,5.50,'2016-11-19 13:49:41',1,2,10),(3,1,100.00,'2016-11-19 13:54:42',1,1,10),(4,50,5000.00,'2016-11-19 13:55:02',1,1,10);
 /*!40000 ALTER TABLE `paniers` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -132,7 +130,7 @@ CREATE TABLE `produits` (
 
 LOCK TABLES `produits` WRITE;
 /*!40000 ALTER TABLE `produits` DISABLE KEYS */;
-INSERT INTO `produits` VALUES (1,1,'Pomme',1.00,'pommes.jpg',1,9938),(2,1,'Poires',1.10,'poires.jpeg',1,9997),(3,1,'Bananes',2.50,'bananes.png',1,999),(4,2,'Potirons',8.00,'potiron.jpg',1,42),(5,2,'Peche',55.00,'peche.jpeg',1,4),(6,3,'Papaye',5.00,'papaye.jpg',1,10);
+INSERT INTO `produits` VALUES (1,1,'Pomme',1.00,'pommes.jpg',1,9608),(2,1,'Poires',1.10,'poires.jpeg',1,9991),(3,1,'Bananes',2.50,'bananes.png',1,643),(4,2,'Potirons',8.00,'potiron.jpg',1,-23),(5,2,'Peche',55.00,'peche.jpeg',1,-2),(6,3,'Papaye',5.00,'papaye.jpg',1,10);
 /*!40000 ALTER TABLE `produits` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -179,7 +177,7 @@ CREATE TABLE `users` (
   `valide` tinyint(4) NOT NULL,
   `droit` varchar(255) NOT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=6 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -188,7 +186,7 @@ CREATE TABLE `users` (
 
 LOCK TABLES `users` WRITE;
 /*!40000 ALTER TABLE `users` DISABLE KEYS */;
-INSERT INTO `users` VALUES (1,'admin@gmail.com','admin','admin','','','','',1,'DROITadmin'),(2,'vendeur@gmail.com','vendeur','vendeur','','','','',1,'DROITadmin'),(3,'client@gmail.com','client','client','','','','',1,'DROITclient'),(4,'client2@gmail.com','client2','client2','','','','',1,'DROITclient'),(5,'client3@gmail.com','client3','client3','','','','',1,'DROITclient');
+INSERT INTO `users` VALUES (3,'admin@mail.com','$2y$12$n8uukt6.v1gPVrK0hXDuOuDyqC0hxtDUBDkStLaPjh9siAvyxPTPK','admin','admin','90000','Belfort','N/A',1,'ROLE_ADMIN'),(4,'client@mail.com','$2y$12$mK0DSK.DI/cBBCxZAoBb4.hC6OmyqMtkwG/GqbcA0vVjdPi2exxrG','client','Client','90000','Client','Client',1,'ROLE_CLIENT');
 /*!40000 ALTER TABLE `users` ENABLE KEYS */;
 UNLOCK TABLES;
 /*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
@@ -201,4 +199,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2016-11-21  9:45:50
+-- Dump completed on 2016-12-05 16:58:47
