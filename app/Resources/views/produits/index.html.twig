@@ -1,49 +1,51 @@
 {% extends 'base.html.twig' %}
 
 {% block body %}
-    <h1>Produits list</h1>
+<h1>Produits list</h1>
 
-    	<div class="table-responsive">
-    <table class="table">
-        <thead>
-            <tr>
-                <th>Nom</th>
-                <th>Prix</th>
-                <th>Photo</th>
-                <th>Dispo</th>
-                <th>Stock</th>
-                <th>Id</th>
-                <th>Actions</th>
-            </tr>
-        </thead>
-        <tbody>
-        {% for produit in produits %}
-            <tr>
-                <td><a href="{{ path('produits_show', { 'id': produit.id }) }}">{{ produit.nom }}</a></td>
-                <td>{{ produit.prix }}</td>
-                <td>{{ produit.photo }}</td>
-                <td>{% if produit.dispo %}Yes{% else %}No{% endif %}</td>
-                <td>{{ produit.stock }}</td>
-                <td>{{ produit.id }}</td>
-                <td>
-                    <ul>
-                        <li>
-                            <a href="{{ path('produits_show', { 'id': produit.id }) }}">show</a>
-                        </li>
-                        <li>
-                            <a href="{{ path('produits_edit', { 'id': produit.id }) }}">edit</a>
-                        </li>
-                    </ul>
-                </td>
-            </tr>
-        {% endfor %}
-        </tbody>
-    </table>
-    </div>
+<div class="table-responsive">
+	<table class="table">
+		<thead>
+			<tr>
+				<th>Nom</th>
+				<th>Prix</th>
+				<th>Photo</th>
+				<th>Dispo</th>
+				<th>Stock</th>
+				<th>Id</th>
+				<th>Actions</th>
+			</tr>
+		</thead>
+		<tbody>
+			{% for produit in produits %}
+			{% if produit.stock <= 0 %}
+			class="danger"
+			{% endif %}
+			<tr {% if produit.stock <= 0 %} class="danger" {% endif %}>
+				<td><a href="{{ path('produits_show', { 'id': produit.id }) }}">{{ produit.nom }}</a></td>
+				<td>{{ produit.prix }}</td>
+				<td>{{ produit.photo }}</td>
+				<td>{% if produit.dispo %}Yes{% else %}No{% endif %}</td>
+				<td>{{ produit.stock }}</td>
+				<td>{{ produit.id }}</td>
+				<td>
+					<ul>
+						<li><a
+							href="{{ path('produits_show', { 'id': produit.id }) }}">show</a>
+						</li>
+						<li><a
+							href="{{ path('produits_edit', { 'id': produit.id }) }}">edit</a>
+						</li>
+					</ul>
+				</td>
+			</tr>
+			{% endfor %}
+		</tbody>
+	</table>
+</div>
 
-    <ul>
-        <li>
-            <a href="{{ path('produits_new') }}">Create a new produit</a>
-        </li>
-    </ul>
+<ul>
+	<li><a href="{{ path('produits_new') }}">Create a new produit</a>
+	</li>
+</ul>
 {% endblock %}
