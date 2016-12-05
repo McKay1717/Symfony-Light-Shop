@@ -35,9 +35,9 @@
 				id="bs-example-navbar-collapse-1">
 
 				<ul class="nav navbar-nav navbar-right">
-					<li>{% if paniers is defined %}<a data-toggle="modal"
-						data-target="#panier">Panier </a>
-					{% endif %} {% if is_granted('IS_AUTHENTICATED_FULLY') %}
+					<li>{% if paniers is defined and is_granted('IS_AUTHENTICATED_FULLY') %}<a
+						data-toggle="modal" data-target="#panier">Panier </a> {% endif %}
+						{% if is_granted('IS_AUTHENTICATED_FULLY') and not  is_granted('ROLE_ADMIN') %}
 					<li class="dropdown"><a href="#" class="dropdown-toggle"
 						data-toggle="dropdown" role="button" aria-haspopup="true"
 						aria-expanded="false">Mon Espace Client <span class="caret"></span></a>
@@ -47,6 +47,26 @@
 									Compte</a></li>
 
 							<li><a href="{{ path("commandes_user") }}">Mes Commandes</a></li>
+							<li><a href="{{ path("logout") }}">Deconnexions</a></li>
+						</ul></li>
+
+					{% elseif  not  is_granted('ROLE_ADMIN')%}
+
+					<li><a href="{{ path('login') }}">Login</a></li>
+					{% endif %}
+										{% if is_granted('ROLE_ADMIN') %}
+					<li class="dropdown"><a href="#" class="dropdown-toggle"
+						data-toggle="dropdown" role="button" aria-haspopup="true"
+						aria-expanded="false">Dashboard <span class="caret"></span></a>
+						<ul class="dropdown-menu">
+							<li><a href="{{ path('users_index')}}">Gérer les
+									utilisateurs</a></li>
+
+							<li><a href="{{ path("commandes_index") }}">Gérer les
+									commandes</a></li>
+							<li><a href="{{ path("paniers_index") }}">Gérer les
+									panier</a></li>
+							<li><a href="{{ path("logout") }}">Deconnexions</a></li>
 						</ul></li>
 					{% endif %}
 				</ul>

@@ -1,31 +1,33 @@
 {% extends 'base.html.twig' %}
 
 {% block body %}
-    <h1>Commandes list</h1>
-	<div class="table-responsive">
-    <table class="table">
-        <thead>
-            <tr>
-                <th>N° de commande</th>
-                <th>Date d'achat</th>
-                <th>Statuts</th>
-            </tr>
-        </thead>
-        <tbody>
-        {% for commande in commandes %}
-            <tr>
-                <td>{{ commande.id }}</td>
-                <td>{% if commande.dateAchat %}{{ commande.dateAchat|date('Y-m-d H:i:s') }}{% endif %}</td>
-                <td>{{ commande.etat }}</td>
-            </tr>
-        {% endfor %}
-        </tbody>
-    </table>
-    </div>
-
-    <ul>
-        <li>
-            <a href="{{ path('commandes_new') }}">Create a new entry</a>
-        </li>
-    </ul>
+{{ dump() }}
+<h1>Commandes list</h1>
+<div class="table-responsive">
+	<table class="table">
+		<thead>
+			<tr>
+				<th>N° de commande</th>
+				<th>Date d'achat</th>
+				<th>Statuts</th>
+			</tr>
+		</thead>
+		<tbody>
+			{% for commande in commandes %}
+			<tr>
+				<td>{{ commande.id }}</td>
+				<td>{% if commande.dateAchat %}
+					{{ commande.dateAchat|date('Y-m-d H:i:s') }}
+					{% endif %}</td>
+				<td>{{ commande.etat }}</td>
+			</tr>
+			{% endfor %}
+		</tbody>
+	</table>
+</div>
+{% if is_granted('ROLE_ADMIN') %}
+<ul>
+	<li><a href="{{ path('commandes_new') }}">Create a new entry</a></li>
+</ul>
+{% endif %}
 {% endblock %}

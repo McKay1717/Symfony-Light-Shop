@@ -21,19 +21,24 @@ class DefaultController extends Controller {
 		
 		$paniers = $em->getRepository ( 'TestBundle:Paniers' )->findAll ();
 		$produits = $em->getRepository ( 'TestBundle:Produits' )->findAll ();
+		$typeproduit = $em->getRepository("TestBundle:Typeproduits")->findAll();
 		
 		$del = array ();
-		foreach ( $paniers as $entity ) {
-			$del [$entity->getId ()] = $this->forward ( 'TestBundle:Paniers:generateDeleteButton', array (
-					'panier' => $entity 
-			) )->getContent ();
+		$commandeButton = "";
+		if ($this->get ( 'security.authorization_checker' )->isGranted ( 'IS_AUTHENTICATED_FULLY' )) {
+			foreach ( $paniers as $entity ) {
+				$del [$entity->getId ()] = $this->forward ( 'TestBundle:Paniers:generateDeleteButton', array (
+						'panier' => $entity 
+				) )->getContent ();
+			}
+			
+			$commandeButton = $this->forward ( 'TestBundle:Commandes:validCard',array ('request'=>$request,'internalcall'=> true))->getContent ();
 		}
-		$commandeButton = $this->forward ( 'TestBundle:Commandes:validCard',array ('request'=>$request,'internalcall'=> true))->getContent ();
-
 		return $this->render ( 'default/grid.html.twig', array (
 				'produits' => $produits,
 				'paniers' => $paniers,
 				'del' => $del,
+				'tp' => $typeproduit,
 				'commander' => $commandeButton
 		) );
 	}

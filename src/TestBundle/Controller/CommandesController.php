@@ -66,7 +66,7 @@ class CommandesController extends Controller {
 	 * @method ({"GET", "POST"})
 	 */
 	public function newAction(Request $request) {
-		if (!$this->get('security.authorization_checker')->isGranted('IS_AUTHENTICATED_FULLY')) {
+		if (!$this->get('security.authorization_checker')->isGranted('ROLE_ADMIN')) {
 			throw $this->createAccessDeniedException();
 		}
 		$commande = new Commandes ();

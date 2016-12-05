@@ -42,9 +42,7 @@ class UsersController extends Controller {
 	 * @method ({"GET", "POST"})
 	 */
 	public function newAction(Request $request) {
-		if (! $this->get ( 'security.authorization_checker' )->isGranted ( 'ROLE_ADMIN' )) {
-			throw $this->createAccessDeniedException ();
-		}
+
 		$user = new Users ();
 		$form = $this->createForm ( 'TestBundle\Form\UsersType', $user);
 		$form->handleRequest ( $request );
