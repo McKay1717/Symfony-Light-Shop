@@ -4,6 +4,7 @@ namespace TestBundle\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\Validator\Constraints as Assert;
+use Doctrine\Common\Collections\ArrayCollection;
 
 /**
  * Commandes
@@ -12,6 +13,11 @@ use Symfony\Component\Validator\Constraints as Assert;
  * @ORM\Entity
  */
 class Commandes {
+	
+	/**
+	 * @ORM\OneToMany(targetEntity="TestBundle\Entity\Paniers", mappedBy="commande")
+	 */
+	private $paniers;
 	/**
 	 *
 	 * @var float @ORM\Column(name="prix", type="float", precision=6, scale=2, nullable=false)
@@ -55,6 +61,18 @@ class Commandes {
 	 */
 	private $user;
 	
+	public function __construct() {
+		$this->paniers = new ArrayCollection();
+	}
+	
+	/**
+	 * Get paniers
+	 *
+	 * 
+	 */
+	public function getPaniers() {
+		return $this->paniers;
+	}
 	/**
 	 * Set prix
 	 *

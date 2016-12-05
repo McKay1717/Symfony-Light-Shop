@@ -10,16 +10,18 @@
 				<th>N° de commande</th>
 				<th>Date d'achat</th>
 				<th>Statuts</th>
+				<th>Produits</th>
 			</tr>
 		</thead>
 		<tbody>
 			{% for commande in commandes %}
 			<tr>
 				<td>{{ commande.id }}</td>
-				<td>{% if commande.dateAchat %}
-					{{ commande.dateAchat|date('Y-m-d H:i:s') }}
+				<td>{% if commande.dateAchat %} {{ commande.dateAchat|date('Y-m-d H:i:s') }}
 					{% endif %}</td>
 				<td>{{ commande.etat }}</td>
+				<td>{% for panier in paniers %} {% if commande.id == panier.commande.id %}
+					{{ panier.produit.nom }} {% endif %} {% endfor %}
 			</tr>
 			{% endfor %}
 		</tbody>

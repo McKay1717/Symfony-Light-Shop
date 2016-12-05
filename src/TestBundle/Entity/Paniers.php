@@ -48,10 +48,8 @@ class Paniers {
 	
 	/**
 	 *
-	 * @var \TestBundle\Entity\Commandes @ORM\ManyToOne(targetEntity="TestBundle\Entity\Commandes")
-	 *      @ORM\JoinColumns({
-	 *      @ORM\JoinColumn(name="commande_id", referencedColumnName="id")
-	 *      })
+     * @ORM\ManyToOne(targetEntity="TestBundle\Entity\Commandes", inversedBy="paniers")
+     * @ORM\JoinColumn(name="commande_id", referencedColumnName="id")
 	 */
 	private $commande;
 	
@@ -63,7 +61,10 @@ class Paniers {
 	 *      @ORM\JoinColumns({
 	 *      @ORM\JoinColumn(name="produit_id", referencedColumnName="id")
 	 *      })
-	 */
+	 *      
+
+     */
+
 	private $produit;
 	
 	/**

@@ -29,9 +29,11 @@ class CommandesController extends Controller {
 		$em = $this->getDoctrine ()->getManager ();
 		
 		$commandes = $em->getRepository ( 'TestBundle:Commandes' )->findAll ();
+		$paniers = $em->getRepository ( 'TestBundle:Paniers' )->findAll();
 		
 		return $this->render ( 'commandes/index.html.twig', array (
-				'commandes' => $commandes 
+				'commandes' => $commandes,
+				'paniers' => $paniers
 		) );
 	}
 	
@@ -51,9 +53,11 @@ class CommandesController extends Controller {
 	
 		$user = $this->get('security.token_storage')->getToken()->getUser();
 		$commandes = $em->getRepository ( 'TestBundle:Commandes' )->findByUser($user);
+		$paniers = $em->getRepository ( 'TestBundle:Paniers' )->findByUser($user);
 	
 		return $this->render ( 'commandes/index.html.twig', array (
-				'commandes' => $commandes
+				'commandes' => $commandes,
+				'paniers' => $paniers
 		) );
 	}
 	

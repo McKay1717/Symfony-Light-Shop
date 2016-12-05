@@ -24,16 +24,16 @@ DROP TABLE IF EXISTS `commandes`;
 /*!40101 SET character_set_client = utf8 */;
 CREATE TABLE `commandes` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
-  `user_id` int(11) NOT NULL,
+  `user_id` int(11) DEFAULT NULL,
   `prix` float(6,2) NOT NULL,
   `date_achat` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
-  `etat_id` int(11) NOT NULL,
+  `etat_id` int(11) DEFAULT NULL,
   PRIMARY KEY (`id`),
   KEY `fk_commandes_users` (`user_id`),
   KEY `fk_commandes_etats` (`etat_id`),
   CONSTRAINT `fk_commandes_etats` FOREIGN KEY (`etat_id`) REFERENCES `etats` (`id`),
   CONSTRAINT `fk_commandes_users` FOREIGN KEY (`user_id`) REFERENCES `users` (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -42,6 +42,7 @@ CREATE TABLE `commandes` (
 
 LOCK TABLES `commandes` WRITE;
 /*!40000 ALTER TABLE `commandes` DISABLE KEYS */;
+INSERT INTO `commandes` VALUES (1,3,3.50,'2016-12-05 23:06:40',1);
 /*!40000 ALTER TABLE `commandes` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -81,8 +82,8 @@ CREATE TABLE `paniers` (
   `quantite` int(11) NOT NULL,
   `prix` float(6,2) NOT NULL,
   `dateAjoutPanier` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
-  `user_id` int(11) NOT NULL,
-  `produit_id` int(11) NOT NULL,
+  `user_id` int(11) DEFAULT NULL,
+  `produit_id` int(11) DEFAULT NULL,
   `commande_id` int(11) DEFAULT NULL,
   PRIMARY KEY (`id`),
   KEY `fk_paniers_users` (`user_id`),
@@ -91,7 +92,7 @@ CREATE TABLE `paniers` (
   CONSTRAINT `fk_paniers_commandes` FOREIGN KEY (`commande_id`) REFERENCES `commandes` (`id`),
   CONSTRAINT `fk_paniers_produits` FOREIGN KEY (`produit_id`) REFERENCES `produits` (`id`),
   CONSTRAINT `fk_paniers_users` FOREIGN KEY (`user_id`) REFERENCES `users` (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -100,6 +101,7 @@ CREATE TABLE `paniers` (
 
 LOCK TABLES `paniers` WRITE;
 /*!40000 ALTER TABLE `paniers` DISABLE KEYS */;
+INSERT INTO `paniers` VALUES (1,1,1.00,'2016-12-05 23:06:28',3,1,1),(2,1,2.50,'2016-12-05 23:06:35',3,4,1),(4,1,2.00,'2016-12-05 23:15:51',3,2,NULL);
 /*!40000 ALTER TABLE `paniers` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -130,7 +132,7 @@ CREATE TABLE `produits` (
 
 LOCK TABLES `produits` WRITE;
 /*!40000 ALTER TABLE `produits` DISABLE KEYS */;
-INSERT INTO `produits` VALUES (1,1,'Pomme',1.00,'pommes.jpg',1,9608),(2,1,'Poires',1.10,'poires.jpeg',1,9991),(3,1,'Bananes',2.50,'bananes.png',1,643),(4,2,'Potirons',8.00,'potiron.jpg',1,-23),(5,2,'Peche',55.00,'peche.jpeg',1,-2),(6,3,'Papaye',5.00,'papaye.jpg',1,10);
+INSERT INTO `produits` VALUES (1,1,'Bananes',1.00,'bananes.png',1,4999),(2,1,'Papaye',2.00,'papaye.jpg',1,65564),(3,1,'Peches',1.50,'peche.jpeg',1,7454),(4,1,'Poires',2.50,'poires.jpeg',1,453),(5,1,'Pommes',1.20,'pommes.jpg',0,6565656),(6,2,'Potirons',5.00,'potiron.jpg',1,6565);
 /*!40000 ALTER TABLE `produits` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -186,7 +188,7 @@ CREATE TABLE `users` (
 
 LOCK TABLES `users` WRITE;
 /*!40000 ALTER TABLE `users` DISABLE KEYS */;
-INSERT INTO `users` VALUES (3,'admin@mail.com','$2y$12$n8uukt6.v1gPVrK0hXDuOuDyqC0hxtDUBDkStLaPjh9siAvyxPTPK','admin','admin','90000','Belfort','N/A',1,'ROLE_ADMIN'),(4,'client@mail.com','$2y$12$mK0DSK.DI/cBBCxZAoBb4.hC6OmyqMtkwG/GqbcA0vVjdPi2exxrG','client','Client','90000','Client','Client',1,'ROLE_CLIENT');
+INSERT INTO `users` VALUES (3,'admin@mail.com','$2y$12$n8uukt6.v1gPVrK0hXDuOuDyqC0hxtDUBDkStLaPjh9siAvyxPTPK','admin','admin','90000','Belfort','N/A',1,'ROLE_ADMIN'),(4,'client@mail.com','$2y$12$p6Wdv5LN9k0wNTtuZnKfxe0KIOBujxGZQy8V6O7HmIGnUtPYX6zTS','client','Client','90000','Client','Client',1,'ROLE_CLIENT');
 /*!40000 ALTER TABLE `users` ENABLE KEYS */;
 UNLOCK TABLES;
 /*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
@@ -199,4 +201,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2016-12-05 16:58:47
+-- Dump completed on 2016-12-06  0:16:24

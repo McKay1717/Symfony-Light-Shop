@@ -26,9 +26,12 @@ class PaniersController extends Controller {
 	 * @method ("GET")
 	 */
 	public function indexAction() {
+		if (! $this->get ( 'security.authorization_checker' )->isGranted ( 'ROLE_ADMIN' )) {
+			throw $this->createAccessDeniedException ();
+		}
 		$em = $this->getDoctrine ()->getManager ();
 		
-		$paniers = $em->getRepository ( 'TestBundle:Paniers' )->findByUser($this->get('security.token_storage')->getToken()->getUser());
+		$paniers = $em->getRepository ( 'TestBundle:Paniers' )->findByUser ( $this->get ( 'security.token_storage' )->getToken ()->getUser () );
 		
 		return $this->render ( 'paniers/index.html.twig', array (
 				'paniers' => $paniers 
@@ -43,6 +46,9 @@ class PaniersController extends Controller {
 	 * @method ({"GET", "POST"})
 	 */
 	public function newAction(Request $request) {
+		if (! $this->get ( 'security.authorization_checker' )->isGranted ( 'ROLE_ADMIN' )) {
+			throw $this->createAccessDeniedException ();
+		}
 		$panier = new Paniers ();
 		$form = $this->createForm ( 'TestBundle\Form\PaniersType', $panier );
 		$form->handleRequest ( $request );
@@ -80,7 +86,7 @@ class PaniersController extends Controller {
 		
 		if (count ( $errors ) <= 0) {
 			
-			$user = $this->get('security.token_storage')->getToken()->getUser();
+			$user = $this->get ( 'security.token_storage' )->getToken ()->getUser ();
 			
 			$tmp = $this->getDoctrine ()->getRepository ( 'TestBundle:Paniers' )->findByProduit ( $produit );
 			foreach ( $tmp as $entity ) {
@@ -98,6 +104,7 @@ class PaniersController extends Controller {
 			} else {
 				if ($panier->getQuantite () + $count <= $produit->getStock ())
 					$panier->setQuantite ( $panier->getQuantite () + $count );
+				$panier->setDateajoutpanier ( new \DateTime () );
 				$panier->setPrix ( $produit->getPrix () * $panier->getQuantite () );
 			}
 			
@@ -122,6 +129,9 @@ class PaniersController extends Controller {
 	 * @method ("GET")
 	 */
 	public function showAction(Paniers $panier) {
+		if (! $this->get ( 'security.authorization_checker' )->isGranted ( 'ROLE_ADMIN' )) {
+			throw $this->createAccessDeniedException ();
+		}
 		$deleteForm = $this->createDeleteForm ( $panier );
 		
 		return $this->render ( 'paniers/show.html.twig', array (
@@ -152,6 +162,9 @@ class PaniersController extends Controller {
 	 * @method ({"GET", "POST"})
 	 */
 	public function editAction(Request $request, Paniers $panier) {
+		if (! $this->get ( 'security.authorization_checker' )->isGranted ( 'ROLE_ADMIN' )) {
+			throw $this->createAccessDeniedException ();
+		}
 		$deleteForm = $this->createDeleteForm ( $panier );
 		$editForm = $this->createForm ( 'TestBundle\Form\PaniersType', $panier );
 		$editForm->handleRequest ( $request );
