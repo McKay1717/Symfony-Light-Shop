@@ -9,9 +9,8 @@ use Symfony\Component\Form\Extension\Core\Type\PasswordType;
 use ZipCodeValidator\Constraints\ZipCode;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
-
-
 use EWZ\Bundle\RecaptchaBundle\Form\Type\EWZRecaptchaType;
+use EWZ\Bundle\RecaptchaBundle\Validator\Constraints\IsTrue as RecaptchaTrue;
 
 class UsersType extends AbstractType {
 	/**
@@ -34,7 +33,12 @@ class UsersType extends AbstractType {
 						'Admin' => "ROLE_ADMIN",
 						'Client' => "ROLE_CLIENT" 
 				) 
-		) )->add('recaptcha', EWZRecaptchaType::class);
+		) )->add ( 'recaptcha', EWZRecaptchaType::class, array (
+				'mapped' => false,
+				'constraints' => array (
+						new RecaptchaTrue () 
+				) 
+		) );
 	}
 	
 	/**
@@ -47,7 +51,6 @@ class UsersType extends AbstractType {
 				'data_class' => 'TestBundle\Entity\Users' 
 		) );
 	}
-	
 	
 	/**
 	 *

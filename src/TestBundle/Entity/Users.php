@@ -6,7 +6,7 @@ use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\Security\Core\User\UserInterface;
 use Symfony\Component\Validator\Constraints as Assert;
 use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
-use EWZ\Bundle\RecaptchaBundle\Validator\Constraints as Recaptcha;
+
 
 /**
  * Users
@@ -17,10 +17,7 @@ use EWZ\Bundle\RecaptchaBundle\Validator\Constraints as Recaptcha;
  */
 class Users implements UserInterface, \Serializable {
 
-	/**
-	 * @Recaptcha\IsTrue
- 	*/
-	public $recaptcha;
+	
 	/**
 	 *
 	 * @var string @ORM\Column(name="email", type="string", length=255, nullable=false)
@@ -336,7 +333,7 @@ class Users implements UserInterface, \Serializable {
 	 * @see \Symfony\Component\Security\Core\User\UserInterface::eraseCredentials()
 	 */
 	public function eraseCredentials() {
-		$this->setPassword(null);
+	
 		
 	}
 	/**

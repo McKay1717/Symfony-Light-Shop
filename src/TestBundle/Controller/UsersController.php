@@ -100,6 +100,8 @@ class UsersController extends Controller {
 		$editForm->handleRequest ( $request );
 		
 		if ($editForm->isSubmitted () && $editForm->isValid ()) {
+			$password = $this->get('security.password_encoder')->encodePassword($user, $user->getPassword());
+			$user->setPassword($password);
 			$this->getDoctrine ()->getManager ()->flush ();
 			
 			return $this->redirectToRoute ( 'users_edit', array (
@@ -129,6 +131,8 @@ class UsersController extends Controller {
 		$editForm->handleRequest ( $request );
 		
 		if ($editForm->isSubmitted () && $editForm->isValid ()) {
+			$password = $this->get('security.password_encoder')->encodePassword($user, $user->getPassword());
+			$user->setPassword($password);
 			$this->getDoctrine ()->getManager ()->flush ();
 			
 			return $this->redirectToRoute ( 'users_edituser', array (
