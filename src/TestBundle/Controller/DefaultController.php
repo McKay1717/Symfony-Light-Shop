@@ -19,7 +19,7 @@ class DefaultController extends Controller {
 	public function indexAction(Request $request) {
 		$em = $this->getDoctrine ()->getManager ();
 		
-		$paniers = $em->getRepository ( 'TestBundle:Paniers' )->findAll ();
+		$paniers = $em->getRepository ( 'TestBundle:Paniers' )->findByUser($this->get('security.token_storage')->getToken()->getUser());
 		$produits = $em->getRepository ( 'TestBundle:Produits' )->findAll ();
 		$typeproduit = $em->getRepository("TestBundle:Typeproduits")->findAll();
 		
@@ -34,11 +34,15 @@ class DefaultController extends Controller {
 			
 			$commandeButton = $this->forward ( 'TestBundle:Commandes:validCard',array ('request'=>$request,'internalcall'=> true))->getContent ();
 		}
+		if(empty($paniers))
+		{
+			$commandeButton = "";
+		}
 		return $this->render ( 'default/grid.html.twig', array (
 				'produits' => $produits,
 				'paniers' => $paniers,
 				'del' => $del,
-				'tp' => $typeproduit,
+				'tp' => $typeproduit, 
 				'commander' => $commandeButton
 		) );
 	}
