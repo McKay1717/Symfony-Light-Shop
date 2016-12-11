@@ -14,13 +14,14 @@ use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
  * @ORM\Table(name="users")
  * @ORM\Entity
  * @UniqueEntity("email")
+ * @UniqueEntity("login")
  */
 class Users implements UserInterface, \Serializable {
 
 	
 	/**
 	 *
-	 * @var string @ORM\Column(name="email", type="string", length=255, nullable=false)
+	 * @var string @ORM\Column(name="email", type="string", length=255, nullable=false,  unique=true)
 	 *      @Assert\Email()
 	 */
 	private $email;
@@ -34,7 +35,7 @@ class Users implements UserInterface, \Serializable {
 	
 	/**
 	 *
-	 * @var string @ORM\Column(name="login", type="string", length=255, nullable=false)
+	 * @var string @ORM\Column(name="login", type="string", length=255, nullable=false, unique=true)
 	 */
 	private $login;
 	

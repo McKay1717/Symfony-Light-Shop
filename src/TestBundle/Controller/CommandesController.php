@@ -108,12 +108,15 @@ class CommandesController extends Controller {
 		$commande = new Commandes ();
 		$em = $this->getDoctrine ()->getManager ();
 		$commande->setDateAchat ( new \DateTime () );
-		$paniers = $em->getRepository ( 'TestBundle:Paniers' )->findAll ();
+		$user = $this->get('security.token_storage')->getToken()->getUser();
+		$paniers = $em->getRepository ( 'TestBundle:Paniers' )->findByUser($user);
 		$count = 0;
+		$panier = array();
 		foreach ( $paniers as $entity ) {
 			if ($entity->getCommande () == null) {
 				$commande->setPrix ( $commande->getPrix () + $entity->getPrix () );
 				$commande->setUser ( $entity->getUser () );
+				array_push($panier, $entity);
 				$count ++;
 			}
 		}
@@ -128,7 +131,7 @@ class CommandesController extends Controller {
 			$em->persist ( $commande );
 			$em->flush ();
 			
-			foreach ( $paniers as $entity ) {
+			foreach ( $panier as $entity ) {
 				$entity->setCommande ( $commande );
 				$produit = $entity->getProduit ();
 				$produit->setStock ( $produit->getStock () - $entity->getQuantite () );
@@ -152,11 +155,19 @@ class CommandesController extends Controller {
 	 * @method ("GET")
 	 */
 	public function showAction(Commandes $commande) {
-		$deleteForm = $this->createDeleteForm ( $commande );
-		
+		$em = $this->getDoctrine ()->getManager ();
+		if ( $this->get ( 'security.authorization_checker' )->isGranted ( 'ROLE_ADMIN' )) {
+			$deleteForm = $this->createDeleteForm ( $commande )->createView () ;
+		}else {
+			$deleteForm = "";
+		}
+		$paniers = $em->getRepository ( 'TestBundle:Paniers' )->findAll();
+		$produits = $em->getRepository ( 'TestBundle:Produits' )->findAll();
 		return $this->render ( 'commandes/show.html.twig', array (
 				'commande' => $commande,
-				'delete_form' => $deleteForm->createView () 
+				'delete_form' => $deleteForm,
+				'paniers' => $paniers,
+				'produits' => $produits
 		) );
 	}
 	

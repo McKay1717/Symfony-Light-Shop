@@ -1,12 +1,15 @@
 {% extends 'base.html.twig' %}
 
 {% block body %}
-{{ dump() }}
+
+
 <div class="container-fluid">
 	<div class="row">
 
 		{% for tpi in tp %}
-		<button class="btn btn-primary active" aria-pressed="true" autocomplete="off" type="button" data-parent="#wrap" data-toggle="collapse" data-target=".{{ tpi.libelle }}">
+		<button class="btn btn-primary active" aria-pressed="true"
+			autocomplete="off" type="button" data-parent="#wrap"
+			data-toggle="collapse" data-target=".{{ tpi.libelle }}">
 			{{ tpi.libelle }}
 		</button>
 		{% endfor %}
@@ -14,8 +17,11 @@
 		{% if produit.stock > 0 %}
 		<div class="collapse in {{ produit.typeproduit.libelle }}">
 			<div class="col-xs-6 col-sm-2 col-md-2">
-				<div class="panel panel-default">
-					<div class="panel-heading">
+
+
+				<div class="panel panel-default {% if lp ==  produit.id%}panel-primary{% endif %}"{% if lp == produit.id %} data-toggle="tooltip"
+					data-placement="top" title="Dernier produit vu" {% endif %}>
+					<div class="panel-heading" >
 						<h3 class="panel-title">
 							<a href="{{ path('produits_show', { 'id': produit.id }) }}">{{ produit.nom }}</a>
 						</h3>
@@ -27,13 +33,7 @@
 					<div class="panel-footer clearfix">
 						{{ produit.prix }}
 						€
-						{% if produit.dispo %}
-						En stock (
-						{{ produit.stock }}
-						)
-						{% else %}
-						En Rupture
-						{% endif %}
+						stock ({{ produit.stock }})
 						<div class="pull-right clearfix">
 
 							{% if is_granted('IS_AUTHENTICATED_FULLY') %}
@@ -108,8 +108,8 @@
 							<tr>
 								<th>Quantite</th>
 								<th>Prix</th>
-								<th>Dateajoutpanier</th>
-								<th>Id</th>
+								<th>Date d'ajout</th>
+								<th>Nom du produit</th>
 								<th>Actions</th>
 							</tr>
 						</thead>
@@ -118,12 +118,11 @@
 							{% if  panier.commande is null %}
 
 							<tr>
-								<td><a
-									href="{{ path('paniers_show', { 'id': panier.id }) }}">{{ panier.quantite }}</a></td>
-								<td>{{ panier.prix }}</td>
+								<td>{{ panier.quantite }}</td>
+								<td>{{ panier.prix }}€</td>
 								<td>{% if panier.dateajoutpanier %} {{ panier.dateajoutpanier|date('Y-m-d H:i:s') }}
 									{% endif %}</td>
-								<td>{{ panier.id }}</td>
+								<td>{{ panier.produit.nom }}</td>
 								<td>
 									<div class="pull-right clearfix">
 										{{ del[panier.id]|raw }}

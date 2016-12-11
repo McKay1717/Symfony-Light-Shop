@@ -1,36 +1,75 @@
 {% extends 'base.html.twig' %}
 
 {% block body %}
-    <h1>Commandes</h1>
+<h1>
+	Commandes n°
+	{{ commande.id }}
+</h1>
 
-    <table>
-        <tbody>
-            <tr>
-                <th>Prix</th>
-                <td>{{ commande.prix }}</td>
-            </tr>
-            <tr>
-                <th>Dateachat</th>
-                <td>{% if commande.dateAchat %}{{ commande.dateAchat|date('Y-m-d H:i:s') }}{% endif %}</td>
-            </tr>
-            <tr>
-                <th>Id</th>
-                <td>{{ commande.id }}</td>
-            </tr>
-        </tbody>
-    </table>
+<table>
+	<tbody>
+		<tr>
+			<th>Prix</th>
+			<td>{{ commande.prix }}€</td>
+		</tr>
+		<tr>
+			<th>Date de commande</th>
+			<td>{% if commande.dateAchat %} {{ commande.dateAchat|date('Y-m-d H:i:s') }}
+				{% endif %}</td>
+		</tr>
+	</tbody>
+</table>
+{% if is_granted('ROLE_ADMIN') %}
+<ul>
+	<li><a href="{{ path('commandes_index') }}">Back to the list</a></li>
+	<li><a href="{{ path('commandes_edit', { 'id': commande.id }) }}">Edit</a>
+	</li>
+	<li>{{ form_start(delete_form) }} <input type="submit"
+		value="Delete"> {{ form_end(delete_form) }}</li>
+</ul>
+{% endif %}
+<div class="container-fluid">
+	<div class="row">
 
-    <ul>
-        <li>
-            <a href="{{ path('commandes_index') }}">Back to the list</a>
-        </li>
-        <li>
-            <a href="{{ path('commandes_edit', { 'id': commande.id }) }}">Edit</a>
-        </li>
-        <li>
-            {{ form_start(delete_form) }}
-                <input type="submit" value="Delete">
-            {{ form_end(delete_form) }}
-        </li>
-    </ul>
+
+		{% for panier in paniers %}
+		{% if panier.commande.id == commande.id %}
+		{% set produit = panier.produit %}
+		<div class="collapse in {{ produit.typeproduit.libelle }}">
+			<div class="col-xs-6 col-sm-2 col-md-2">
+
+
+				<div class="panel panel-default ">
+					<div class="panel-heading">
+						<h3 class="panel-title">
+							<a href="{{ path('produits_show', { 'id': produit.id }) }}">{{ produit.nom }}</a>
+							x
+							{{ panier.quantite }}
+						</h3>
+					</div>
+					<div class="panel-body center-block">
+						<img class="img-responsive img-thumbnail center-block" alt=""
+							src="{{ asset('bundles/test/img/') }}{{ produit.photo }}">
+					</div>
+					<div class="panel-footer clearfix">
+						{{ produit.prix*panier.quantite }}
+						€
+						
+						stock ({{ produit.stock }})
+			
+					</div>
+				</div>
+			</div>
+			<!-- Modal -->
+			
+		</div>
+
+
+		{% endif %}
+		{% endfor %}
+
+	</div>
+</div>
+
 {% endblock %}
+

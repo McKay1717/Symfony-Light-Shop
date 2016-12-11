@@ -9,6 +9,7 @@ use TestBundle\Entity\Paniers;
 use TestBundle\Entity\Produits;
 use Symfony\Component\HttpFoundation\Request;
 use TestBundle\Entity\Commandes;
+use Symfony\Component\HttpFoundation\Session\Session;
 
 class DefaultController extends Controller {
 	/**
@@ -18,6 +19,10 @@ class DefaultController extends Controller {
 	 */
 	public function indexAction(Request $request) {
 		$em = $this->getDoctrine ()->getManager ();
+		
+		$session = new Session();
+		$session->migrate();
+		$lp = $session->get('lp');
 		
 		$paniers = $em->getRepository ( 'TestBundle:Paniers' )->findByUser ( $this->get ( 'security.token_storage' )->getToken ()->getUser () );
 		$produits = $em->getRepository ( 'TestBundle:Produits' )->findAll ();
@@ -59,7 +64,8 @@ class DefaultController extends Controller {
 				'paniers' => $paniers,
 				'del' => $del,
 				'tp' => $typeproduit, 
-				'commander' => $commandeButton
+				'commander' => $commandeButton,
+				'lp' => $lp
 		) );
 	}
 }

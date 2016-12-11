@@ -7,6 +7,7 @@ use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Method;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Symfony\Component\HttpFoundation\Request;
+use Symfony\Component\HttpFoundation\Session\Session;
 
 /**
  * Produit controller.
@@ -74,14 +75,19 @@ class ProduitsController extends Controller {
 	 * @method ("GET")
 	 */
 	public function showAction(Produits $produit) {
-		if (! $this->get ( 'security.authorization_checker' )->isGranted ( 'ROLE_ADMIN' )) {
-			throw $this->createAccessDeniedException ();
+		if ( $this->get ( 'security.authorization_checker' )->isGranted ( 'ROLE_ADMIN' )) {
+			$deleteForm = $this->createDeleteForm ( $produit )->createView () ;
+		}else {
+			$deleteForm = "";
 		}
-		$deleteForm = $this->createDeleteForm ( $produit );
+		$session = new Session();
+		$session->migrate();
+		$session->set('lp', $produit->getId());
+		
 		
 		return $this->render ( 'produits/show.html.twig', array (
 				'produit' => $produit,
-				'delete_form' => $deleteForm->createView () 
+				'delete_form' => $deleteForm
 		) );
 	}
 	

@@ -4,13 +4,13 @@
 {{ dump() }}
 <h1>Commandes list</h1>
 <div class="table-responsive">
-	<table class="table">
+	<table class="table table-hover">
 		<thead>
 			<tr>
 				<th>N° de commande</th>
 				<th>Date d'achat</th>
 				<th>Statuts</th>
-				<th>Produits</th>
+				<th>Action</th>
 			</tr>
 		</thead>
 		<tbody>
@@ -20,8 +20,7 @@
 				<td>{% if commande.dateAchat %} {{ commande.dateAchat|date('Y-m-d H:i:s') }}
 					{% endif %}</td>
 				<td>{{ commande.etat }}</td>
-				<td>{% for panier in paniers %} {% if commande.id == panier.commande.id %}
-					{{ panier.produit.nom }} {% endif %} {% endfor %}
+				<td><a href="{{ path('commandes_show', { 'id': commande.id }) }}"">Detail de la commande</a></td>
 			</tr>
 			{% endfor %}
 		</tbody>
