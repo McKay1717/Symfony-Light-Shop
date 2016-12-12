@@ -16,7 +16,7 @@ class CommentsType extends AbstractType {
 	 */
 	public function buildForm(FormBuilderInterface $builder, array $options) {
 		$builder->add ( 'content', CKEditorType::class, array (
-				'label' => 'Commentaire' 
+				'label' => 'Nouveau commentaire' 
 		));
 	}
 	

@@ -63,8 +63,8 @@ class CommentsController extends Controller {
 			$em->persist ( $comment );
 			$em->flush ( $comment );
 			
-			return $this->redirectToRoute ( 'comments_show', array (
-					'id' => $comment->getId () 
+			return $this->redirectToRoute ( 'produits_show', array (
+					'id' => $product->getId ()
 			) );
 		}
 		

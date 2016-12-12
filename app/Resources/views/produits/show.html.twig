@@ -42,12 +42,23 @@
 </ul>
 
 {% endif %}
+
+<strong>Commentaire</strong>
+{%  for comment in comments %}
+<div class="well well-lg">
+	Commantaire de {{ comment.user.login }}<br>
+	Le {{ comment.date |date("m/d/Y à H:i") }}
+	<div class="well well-lg">
+		{{ comment.content | raw }}
+	</div>
+</div>
+{% endfor %}
+{% if is_granted('IS_AUTHENTICATED_FULLY') %}
 {{ form_start(comment_form, {'action': path('comments_new')}) }}
 {{ form_widget(comment_form) }}
 <input type="submit" value="Créer" />
 {{ form_end(comment_form) }}
+{% endif %}
 
-{%  for comment in comments %}
-{{ comment.content | raw }}
-{% endfor %}
+
 {% endblock %}
