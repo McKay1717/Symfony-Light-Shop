@@ -51,7 +51,8 @@
 		"symfony/var-dumper": "^3.1",
 		"barbieswimcrew/zip-code-validator": "^1.0",
 		"google/recaptcha": "^1.1",
-		"excelwebzone/recaptcha-bundle": "^1.4"
+		"excelwebzone/recaptcha-bundle": "^1.4",
+		"egeloen/ckeditor-bundle": "^4.0"
 	},
 	"require-dev" : {
 		"sensio/generator-bundle" : "^3.0",

@@ -40,5 +40,14 @@
 	<li>{{ form_start(delete_form) }} <input type="submit"
 		value="Delete"> {{ form_end(delete_form) }}</li>
 </ul>
+
 {% endif %}
+{{ form_start(comment_form, {'action': path('comments_new')}) }}
+{{ form_widget(comment_form) }}
+<input type="submit" value="Créer" />
+{{ form_end(comment_form) }}
+
+{%  for comment in comments %}
+{{ comment.content | raw }}
+{% endfor %}
 {% endblock %}

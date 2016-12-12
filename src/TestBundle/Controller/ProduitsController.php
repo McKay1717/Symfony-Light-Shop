@@ -8,6 +8,7 @@ use Sensio\Bundle\FrameworkExtraBundle\Configuration\Method;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Session\Session;
+use TestBundle\Entity\Comments;
 
 /**
  * Produit controller.
@@ -74,20 +75,27 @@ class ProduitsController extends Controller {
 	 * 
 	 * @method ("GET")
 	 */
-	public function showAction(Produits $produit) {
+	public function showAction(Request $request, Produits $produit) {
 		if ( $this->get ( 'security.authorization_checker' )->isGranted ( 'ROLE_ADMIN' )) {
 			$deleteForm = $this->createDeleteForm ( $produit )->createView () ;
 		}else {
 			$deleteForm = "";
 		}
+		$em = $this->getDoctrine ()->getManager ();
+		$comments = $em->getRepository ( 'TestBundle:Comments' )->findByProduct($produit);
 		$session = new Session();
 		$session->migrate();
 		$session->set('lp', $produit->getId());
+		$comment = new Comments ();
+		$form = $this->createForm ( 'TestBundle\Form\CommentsType', $comment )->createView();
+		
 		
 		
 		return $this->render ( 'produits/show.html.twig', array (
 				'produit' => $produit,
-				'delete_form' => $deleteForm
+				'delete_form' => $deleteForm,
+				'comment_form' => $form,
+				'comments' => $comments
 		) );
 	}
 	
