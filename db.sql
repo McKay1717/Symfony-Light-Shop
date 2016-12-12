@@ -1,13 +1,13 @@
--- MySQL dump 10.13  Distrib 5.7.16, for Linux (x86_64)
+-- MySQL dump 10.15  Distrib 10.0.28-MariaDB, for debian-linux-gnu (x86_64)
 --
--- Host: localhost    Database: p2
+-- Host: localhost    Database: localhost
 -- ------------------------------------------------------
--- Server version	5.7.16-0ubuntu0.16.10.1
+-- Server version	10.0.28-MariaDB-0ubuntu0.16.10.1
 
 /*!40101 SET @OLD_CHARACTER_SET_CLIENT=@@CHARACTER_SET_CLIENT */;
 /*!40101 SET @OLD_CHARACTER_SET_RESULTS=@@CHARACTER_SET_RESULTS */;
 /*!40101 SET @OLD_COLLATION_CONNECTION=@@COLLATION_CONNECTION */;
-/*!40101 SET NAMES utf8 */;
+/*!40101 SET NAMES utf8mb4 */;
 /*!40103 SET @OLD_TIME_ZONE=@@TIME_ZONE */;
 /*!40103 SET TIME_ZONE='+00:00' */;
 /*!40014 SET @OLD_UNIQUE_CHECKS=@@UNIQUE_CHECKS, UNIQUE_CHECKS=0 */;
@@ -33,7 +33,7 @@ CREATE TABLE `commandes` (
   KEY `fk_commandes_etats` (`etat_id`),
   CONSTRAINT `fk_commandes_etats` FOREIGN KEY (`etat_id`) REFERENCES `etats` (`id`),
   CONSTRAINT `fk_commandes_users` FOREIGN KEY (`user_id`) REFERENCES `users` (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=7 DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -42,8 +42,38 @@ CREATE TABLE `commandes` (
 
 LOCK TABLES `commandes` WRITE;
 /*!40000 ALTER TABLE `commandes` DISABLE KEYS */;
-INSERT INTO `commandes` VALUES (1,3,3.50,'2016-12-05 23:06:40',1);
+INSERT INTO `commandes` VALUES (1,3,3.50,'2016-12-05 23:06:40',1),(2,4,4.50,'2016-12-11 18:18:09',1),(3,4,25.00,'2016-12-11 18:31:30',1),(4,4,100.00,'2016-12-11 18:32:08',1),(5,4,2.50,'2016-12-11 18:38:01',1),(6,4,501.20,'2016-12-11 18:45:40',1);
 /*!40000 ALTER TABLE `commandes` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
+-- Table structure for table `comments`
+--
+
+DROP TABLE IF EXISTS `comments`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `comments` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `user_id` int(11) NOT NULL,
+  `product_id` int(11) NOT NULL,
+  `content` varchar(255) NOT NULL,
+  `date` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
+  PRIMARY KEY (`id`),
+  KEY `fk_user_id` (`user_id`),
+  KEY `fk_product_id` (`product_id`),
+  CONSTRAINT `fk_product_id` FOREIGN KEY (`product_id`) REFERENCES `produits` (`id`),
+  CONSTRAINT `fk_user_id` FOREIGN KEY (`user_id`) REFERENCES `users` (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `comments`
+--
+
+LOCK TABLES `comments` WRITE;
+/*!40000 ALTER TABLE `comments` DISABLE KEYS */;
+/*!40000 ALTER TABLE `comments` ENABLE KEYS */;
 UNLOCK TABLES;
 
 --
@@ -101,7 +131,7 @@ CREATE TABLE `paniers` (
 
 LOCK TABLES `paniers` WRITE;
 /*!40000 ALTER TABLE `paniers` DISABLE KEYS */;
-INSERT INTO `paniers` VALUES (1,1,1.00,'2016-12-05 23:06:28',3,1,1),(2,1,2.50,'2016-12-05 23:06:35',3,4,1),(4,1,2.00,'2016-12-05 23:15:51',3,2,NULL);
+INSERT INTO `paniers` VALUES (1,1,1.00,'2016-12-05 23:06:28',3,1,4),(2,1,2.50,'2016-12-05 23:06:35',3,4,4),(4,1,2.00,'2016-12-05 23:15:51',3,2,4);
 /*!40000 ALTER TABLE `paniers` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -132,7 +162,7 @@ CREATE TABLE `produits` (
 
 LOCK TABLES `produits` WRITE;
 /*!40000 ALTER TABLE `produits` DISABLE KEYS */;
-INSERT INTO `produits` VALUES (1,1,'Bananes',1.00,'bananes.png',1,4999),(2,1,'Papaye',2.00,'papaye.jpg',1,65564),(3,1,'Peches',1.50,'peche.jpeg',1,7454),(4,1,'Poires',2.50,'poires.jpeg',1,453),(5,1,'Pommes',1.20,'pommes.jpg',0,6565656),(6,2,'Potirons',5.00,'potiron.jpg',1,6565);
+INSERT INTO `produits` VALUES (1,1,'Bananes',1.00,'bananes.png',1,4396),(2,1,'Papaye',2.00,'papaye.jpg',1,65561),(3,1,'Peches',1.50,'peche.jpeg',1,7454),(4,1,'Poires',2.50,'poires.jpeg',1,426),(5,1,'Pommes',1.20,'pommes.jpg',0,6565655),(6,2,'Potirons',5.00,'potiron.jpg',1,6565);
 /*!40000 ALTER TABLE `produits` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -201,4 +231,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2016-12-06  0:16:24
+-- Dump completed on 2016-12-12 11:14:46
