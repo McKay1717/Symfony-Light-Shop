@@ -14,7 +14,7 @@
 		</button>
 		{% endfor %}
 		{% for produit in produits %}
-		{% if produit.stock > 0 %}
+		{% if produit.stock > 0  and produit.dispo == 'Yes'%}
 		<div class="collapse in {{ produit.typeproduit.libelle }}">
 			<div class="col-xs-6 col-sm-2 col-md-2">
 
@@ -28,7 +28,7 @@
 					</div>
 					<div class="panel-body center-block">
 						<img class="img-responsive img-thumbnail center-block" alt=""
-							src="{{ asset('bundles/test/img/') }}{{ produit.photo }}">
+							src="{{ app.request.basePath }}{{ vich_uploader_asset(produit, 'imageFile') }}" alt="{{ produit.nom  }}">
 					</div>
 					<div class="panel-footer clearfix">
 						{{ produit.prix }}

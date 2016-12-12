@@ -9,7 +9,7 @@
 	</div>
 	<div class="panel-body center-block">
 		<img class="img-responsive img-thumbnail center-block" alt=""
-			src="{{ asset('bundles/test/img/') }}{{ produit.photo }}">
+			src="{{ app.request.basePath }}{{ vich_uploader_asset(produit, 'imageFile') }}" alt="{{ produit.nom  }}">
 	</div>
 	<div class="panel-footer clearfix">
 		{{ produit.prix }}
