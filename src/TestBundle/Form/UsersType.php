@@ -25,20 +25,23 @@ class UsersType extends AbstractType {
 								'iso' => 'FR' 
 						) ) 
 				) 
-		) )->add ( 'ville' )->add ( 'adresse' )->add ( 'valide' )->
-
-		add ( 'droit', ChoiceType::class, array (
-				'choices' => array (
-						'' => null,
-						'Admin' => "ROLE_ADMIN",
-						'Client' => "ROLE_CLIENT" 
-				) 
-		) )->add ( 'recaptcha', EWZRecaptchaType::class, array (
+		) )->add ( 'ville' )->add ( 'adresse' )->add ( 'recaptcha', EWZRecaptchaType::class, array (
 				'mapped' => false,
 				'constraints' => array (
 						new RecaptchaTrue () 
 				) 
 		) );
+		if ($options['role'] == "ROLE_ADMIN") {
+			$builder->
+
+			add ( 'droit', ChoiceType::class, array (
+					'choices' => array (
+							'' => null,
+							'Admin' => "ROLE_ADMIN",
+							'Client' => "ROLE_CLIENT" 
+					) 
+			) )->add ( 'valide' );
+		}
 	}
 	
 	/**
@@ -48,7 +51,8 @@ class UsersType extends AbstractType {
 	 */
 	public function configureOptions(OptionsResolver $resolver) {
 		$resolver->setDefaults ( array (
-				'data_class' => 'TestBundle\Entity\Users' 
+				'data_class' => 'TestBundle\Entity\Users',
+				'role' => 'ROLE_USER' 
 		) );
 	}
 	

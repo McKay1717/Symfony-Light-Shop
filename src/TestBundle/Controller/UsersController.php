@@ -44,12 +44,14 @@ class UsersController extends Controller {
 	public function newAction(Request $request) {
 
 		$user = new Users ();
-		$form = $this->createForm ( 'TestBundle\Form\UsersType', $user);
+		$form = $this->createForm ( 'TestBundle\Form\UsersType', $user,['role' => 'ROLE_CLIENT']);
 		$form->handleRequest ( $request );
 		
 		if ($form->isSubmitted () && $form->isValid ()) {
 			$password = $this->get('security.password_encoder')->encodePassword($user, $user->getPassword());
 			$user->setPassword($password);
+			$user->setDroit("ROLE_CLIENT");
+			$user->setValide(1);
 			$em = $this->getDoctrine ()->getManager ();
 			$em->persist ( $user );
 			$em->flush ( $user );
@@ -96,7 +98,7 @@ class UsersController extends Controller {
 			throw $this->createAccessDeniedException ();
 		}
 		$deleteForm = $this->createDeleteForm ( $user );
-		$editForm = $this->createForm ( 'TestBundle\Form\UsersType', $user );
+		$editForm = $this->createForm ( 'TestBundle\Form\UsersType', $user,['role' => $this->getUser()->getRoles()] );
 		$editForm->handleRequest ( $request );
 		
 		if ($editForm->isSubmitted () && $editForm->isValid ()) {
@@ -126,7 +128,7 @@ class UsersController extends Controller {
 		if ($this->get ( 'security.token_storage' )->getToken ()->getUser () != $user) {
 			throw $this->createAccessDeniedException ();
 		}
-		$editForm = $this->createForm ( 'TestBundle\Form\UsersType', $user );
+		$editForm = $this->createForm ( 'TestBundle\Form\UsersType', $user,['role' => $this->getUser()->getRoles()] );
 		
 		$editForm->handleRequest ( $request );
 		
