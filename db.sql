@@ -64,7 +64,7 @@ CREATE TABLE `comments` (
   KEY `fk_product_id` (`product_id`),
   CONSTRAINT `fk_product_id` FOREIGN KEY (`product_id`) REFERENCES `produits` (`id`),
   CONSTRAINT `fk_user_id` FOREIGN KEY (`user_id`) REFERENCES `users` (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+) ENGINE=InnoDB AUTO_INCREMENT=6 DEFAULT CHARSET=utf8mb4;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -73,6 +73,7 @@ CREATE TABLE `comments` (
 
 LOCK TABLES `comments` WRITE;
 /*!40000 ALTER TABLE `comments` DISABLE KEYS */;
+INSERT INTO `comments` VALUES (1,4,1,'<p><strong>Test</strong></p>','2016-12-12 10:29:11'),(2,4,1,'<p><strong>Test</strong></p>','2016-12-12 10:29:31'),(3,4,2,'<div style=\"background:#eeeeee;border:1px solid #cccccc;padding:5px 10px;\"><s><strong>Test</strong></s></div>','2016-12-12 10:57:36'),(4,4,2,'<p>Toto</p>','2016-12-12 12:36:57'),(5,4,2,'<p>Je suis un commentaire</p>','2016-12-12 12:41:47');
 /*!40000 ALTER TABLE `comments` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -131,7 +132,6 @@ CREATE TABLE `paniers` (
 
 LOCK TABLES `paniers` WRITE;
 /*!40000 ALTER TABLE `paniers` DISABLE KEYS */;
-INSERT INTO `paniers` VALUES (1,1,1.00,'2016-12-05 23:06:28',3,1,4),(2,1,2.50,'2016-12-05 23:06:35',3,4,4),(4,1,2.00,'2016-12-05 23:15:51',3,2,4);
 /*!40000 ALTER TABLE `paniers` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -153,7 +153,7 @@ CREATE TABLE `produits` (
   PRIMARY KEY (`id`),
   KEY `fk_produits_typeProduits` (`typeProduit_id`),
   CONSTRAINT `fk_produits_typeProduits` FOREIGN KEY (`typeProduit_id`) REFERENCES `typeProduits` (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=7 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=9 DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -209,7 +209,7 @@ CREATE TABLE `users` (
   `valide` tinyint(4) NOT NULL,
   `droit` varchar(255) NOT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=6 DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -218,7 +218,7 @@ CREATE TABLE `users` (
 
 LOCK TABLES `users` WRITE;
 /*!40000 ALTER TABLE `users` DISABLE KEYS */;
-INSERT INTO `users` VALUES (3,'admin@mail.com','$2y$12$n8uukt6.v1gPVrK0hXDuOuDyqC0hxtDUBDkStLaPjh9siAvyxPTPK','admin','admin','90000','Belfort','N/A',1,'ROLE_ADMIN'),(4,'client@mail.com','$2y$12$p6Wdv5LN9k0wNTtuZnKfxe0KIOBujxGZQy8V6O7HmIGnUtPYX6zTS','client','Client','90000','Client','Client',1,'ROLE_CLIENT');
+INSERT INTO `users` VALUES (3,'admin@mail.com','$2y$12$n8uukt6.v1gPVrK0hXDuOuDyqC0hxtDUBDkStLaPjh9siAvyxPTPK','admin','admin','90000','Belfort','N/A',1,'ROLE_ADMIN'),(4,'client@mail.com','$2y$12$p6Wdv5LN9k0wNTtuZnKfxe0KIOBujxGZQy8V6O7HmIGnUtPYX6zTS','client','Client','90000','Client','Client',1,'ROLE_CLIENT'),(5,'test@user.foo','$2y$12$k1RAdU5l/c9tD1sbgweFGOJ1bCUm.O9Y8YggCWmje6dmrQ8BG5ffS','dfs','test','39570','Courlaoux','ds',1,'ROLE_CLIENT');
 /*!40000 ALTER TABLE `users` ENABLE KEYS */;
 UNLOCK TABLES;
 /*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
@@ -231,4 +231,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2016-12-12 11:14:46
+-- Dump completed on 2016-12-12 14:54:26
